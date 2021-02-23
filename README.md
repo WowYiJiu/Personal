@@ -25,7 +25,7 @@
    - [@blackmatrix7](https://github.com/blackmatrix7)
 5. 寻找各位大佬的脚本整合属于自己的GetCookie重写以及Task重写 (*因我在整合时发现各位大佬的脚本对我有用的很少且有的无法使用，所以此次整合很少，后续会根据情况添加自用*)
 
-**如果我的思路对你有帮助，麻烦可否点个_Star_在下感激不尽**
+**如果我的思路对你有帮助，麻烦可否点个*Star*, 在下感激不尽**.
 
 ### 特别感谢以下YouTube视频作者 (排名不分先后）
 - [@北纬37度的大飛](https://www.youtube.com/playlist?list=PLjqZWxLDYP3t12BpTjBvrDCbyJkYNxzwE)
