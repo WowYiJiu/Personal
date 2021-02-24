@@ -6,10 +6,10 @@
     "10 7 * * * https://jdsharedresourcescdn.azureedge.net/jdresource/jd_crazy_joy_bonus.js, tag=监控CrazyJoy分红, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/jd_crazy_joy.png, enabled=true",
     "5 14 * * FRI https://jdsharedresourcescdn.azureedge.net/jdresource/jd_unsubscribe.js, tag=取关京东店铺商品, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/jd.png, enabled=true",
     "15 17 * * * https://jdsharedresourcescdn.azureedge.net/jdresource/xmSports.js, tag=小米运动, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/xmyd.png, enabled=true",
-    "30 8 * * * https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/script/smzdm/smzdm_checkin.js, tag=什么值得买每日签到 img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/smzdm.png, enabled=true",
+    "30 8 * * * https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/script/smzdm/smzdm_checkin.js, tag=什么值得买每日签到, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/smzdm.png, enabled=true",
     "20 7 * * * https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/script/manmanbuy/manmanbuy_checkin.js, tag=慢慢买, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/manmanbuy.png, enabled=true",
     "0 8 * * * https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/script/didichuxing/didi_checkin.js, tag=滴滴出行, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/didi.png, enabled=true",
     "5 8 * * * https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/script/wanda/wanda_checkin.js, tag=万达电影, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/wanda.png, enabled=true",
-    "5 7 * * * https://raw.githubusercontent.com/chavyleung/scripts/master/flyertea/flyertea.js, tag=飞客茶馆, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/flyertea.png，enabled=true"
+    "5 7 * * * https://raw.githubusercontent.com/chavyleung/scripts/master/flyertea/flyertea.js, tag=飞客茶馆, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/flyertea.png"
   ]
 }
