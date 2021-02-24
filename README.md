@@ -41,6 +41,7 @@
 - [@lxk0301](https://github.com/lxk0301)
 - [@crossutility](https://github.com/crossutility)
 - [@KOP-XIAO](https://github.com/KOP-XIAO)
+- [@HotKids](https://github.com/HotKids)
 ### 分流规则作者
 - [@DivineEngine](https://github.com/DivineEngine)
 - [@blackmatrix7](https://github.com/blackmatrix7)
