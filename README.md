@@ -19,7 +19,7 @@
    - [by w37fhy懒人配置](https://raw.githubusercontent.com/w37fhy/QuantumultX/master/w37fhy_diy.conf)
    - [by limbopro懒人配置](https://raw.githubusercontent.com/limbopro/Profiles4limbo/main/full.conf)
    - [by Orz-3](https://raw.githubusercontent.com/Orz-3/QuantumultX/master/Orz-3.conf)
-     - **下面是由[@limbopro](https://github.com/limbopro)写的常用正则表达筛选公式或许对你筛选节点有帮助: 
+     - 下面是由[@limbopro](https://github.com/limbopro)写的常用正则表达筛选公式或许对你筛选节点有帮助:
      - **https://limbopro.xyz/archives/11131.html**
 4. 给策略组添加分流规则
    本人采用的分流规则均来自于以下两位Github大佬:
