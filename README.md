@@ -31,9 +31,6 @@
    
    ***因为不想订阅多个task gallery以及引用多个Cookie重写所以自己去整理自用，只有适合自己的才是最好的:grin:***
    
-   **下面是我整理的task gallery图片**
-   ![](https://raw.githubusercontent.com/WowYiJiu/Personal/main/Task%20Gallery%E5%B1%95%E7%A4%BA%E5%9B%BE.png "task gallery")
-
 **如果我的思路对你有帮助，麻烦可否点个*Star*, 在下感激不尽:gift_heart::gift_heart::gift_heart:**.
 
 ### 特别感谢以下YouTube视频作者 (排名不分先后）
