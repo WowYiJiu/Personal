@@ -2,13 +2,13 @@
   "name": "Sunert",
   "version": "1.0.0",
   "description": "",
-  "main": "jingxi.js",
+  "main": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Sunert/Scripts.git"
+    "url": "https://github.com/WowYiJiu/Personal.git"
   },
   "keywords": ["中青看点"],
   "author": "Sunert",
