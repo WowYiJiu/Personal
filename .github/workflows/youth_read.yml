@@ -3,13 +3,9 @@ name: 中青自动阅读
 on:
   workflow_dispatch:
   schedule:
-<<<<<<< HEAD
      - cron: '0 22,10 * * *'
-=======
-     - cron: '*/20 * * * *'
->>>>>>> ac01eeab28059b31ac667617e04f967cd95c9d2b
   watch:
-    types: Youth_Read
+    types: started
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -19,14 +15,9 @@ jobs:
       YOUTH_READ2: ${{ secrets.YOUTH_READ2 }}
       YOUTH_READ3: ${{ secrets.YOUTH_READ3 }}
       YOUTH_READ4: ${{ secrets.YOUTH_READ4 }}
-      YOUTH_READ5: ${{ secrets.YOUTH_READ5 }}
     steps:
-<<<<<<< HEAD
       - name: Checkout
         uses: actions/checkout@v1
-=======
-      - uses: actions/checkout@v1
->>>>>>> ac01eeab28059b31ac667617e04f967cd95c9d2b
       - name: Use Node.js 12.x
         uses: actions/setup-node@v1
         with:
@@ -62,10 +53,3 @@ jobs:
           node Task/Youth_Read.js
         env:
           YOUTH_READ: ${{ secrets.YOUTH_READ4 }}
-          
-      - name: '运行 【中青看点自动阅读五】'
-        if: env.YOUTH_READ5
-        run: |
-          node Youth_Read.js
-        env:
-          YOUTH_READ: ${{ secrets.YOUTH_READ5 }}
