@@ -20,7 +20,6 @@
     "25 6 * * * https://raw.githubusercontent.com/chavyleung/scripts/master/10000/10000.js, tag=10000, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/10000.png, enabled=true",
     "30 8 * * * https://raw.githubusercontent.com/chavyleung/scripts/master/wps/wps.js, tag=WPS, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/wps.png, enabled=true",
     "30 6 * * * https://raw.githubusercontent.com/chavyleung/scripts/master/ithome/ithome.js, tag=IT之家, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/ithome.png, enabled=true",
-    "35 6 * * * https://raw.githubusercontent.com/chavyleung/scripts/master/csdn/csdn.js, tag=CSDN, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/csdn.png, enabled=true",
     "40 6 * * * https://raw.githubusercontent.com/chavyleung/scripts/master/ximalaya/ximalaya.js, tag=喜马拉雅, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/ximalaya.png, enabled=true",
     "45 6 * * * https://raw.githubusercontent.com/chavyleung/scripts/master/flyertea/flyertea.js, tag=飞客茶馆, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/flyertea.png, enabled=true",
     "50 6 * * * https://raw.githubusercontent.com/chavyleung/scripts/master/feng/feng.js, tag=威锋网, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/feng.png, enabled=true",
