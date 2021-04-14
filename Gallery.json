@@ -2,10 +2,8 @@
  "name": "WowYiJiu gallery",
  "description": "自用的task脚本",
  "task": [
-    "30 7 * * * https://jdsharedresourcescdn.azureedge.net/jdresource/jd_bean_change.js, tag=京豆变动通知, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/jd.png, enabled=true",
     "0 0 * * * https://jdsharedresourcescdn.azureedge.net/jdresource/jd_blueCoin.js, tag=东东超市兑换奖品, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/jxc.png, enabled=true",
     "0 0 * * * https://jdsharedresourcescdn.azureedge.net/jdresource/jd_car_exchange.js, tag=京东汽车兑换, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/jd_redPacket.png, enabled=true",
-    "0 0-16/8 * * * https://jdsharedresourcescdn.azureedge.net/jdresource/jd_joy_reward.js, tag=宠汪汪积分兑换奖品, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/jdcww.png, enabled=true",
     "30 18 * * * https://jdsharedresourcescdn.azureedge.net/jdresource/jd_unsubscribe.js, tag=取关京东店铺商品, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/jd.png, enabled=true",
     "30 17 * * * https://jdsharedresourcescdn.azureedge.net/jdresource/xmSports.js, tag=小米运动, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/xmyd.png, enabled=true",
     "0 6 * * * https://raw.githubusercontent.com/NobyDa/Script/master/52pojie-DailyBonus/52pojie.js, tag=吾爱破解, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/52pj.png, enabled=true",
@@ -14,6 +12,9 @@
     "10 6 * * * https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/script/manmanbuy/manmanbuy_checkin.js, tag=慢慢买, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/manmanbuy.png, enabled=true",
     "15 6 * * * https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/script/didichuxing/didi_checkin.js, tag=滴滴出行, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/didi.png, enabled=true",
     "20 6 * * * https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/script/wanda/wanda_checkin.js, tag=万达电影, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/wanda.png, enabled=true",
+    "0 10 * * * https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/script/eleme/eleme_mission.js, tag=领取会员任务, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/elem.png, enabled=true",
+    "10 20 * * * https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/script/eleme/eleme_daily.js, tag=领取吃货豆, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/elem.png, enabled=true",
+    "15 7 * * * https://raw.githubusercontent.com/songyangzz/QuantumultX/master/elem/elemSign.js, tag=饿了么, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/elem.png, enabled=true",
     "25 6 * * * https://raw.githubusercontent.com/chavyleung/scripts/master/10000/10000.js, tag=10000, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/10000.png, enabled=true",
     "30 8 * * * https://raw.githubusercontent.com/chavyleung/scripts/master/wps/wps.js, tag=WPS, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/wps.png, enabled=true",
     "30 6 * * * https://raw.githubusercontent.com/chavyleung/scripts/master/ithome/ithome.js, tag=IT之家, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/ithome.png, enabled=true",
@@ -24,7 +25,6 @@
     "0 7 * * * https://raw.githubusercontent.com/chavyleung/scripts/master/sfexpress/sfexpress.js, tag=顺丰速运, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/sfexpress.png, enabled=true",
     "0 8 * * * https://raw.githubusercontent.com/toulanboy/scripts/master/jd_price_detect/jd_price_detect.js, tag=京东价格提醒, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/jd.png, enabled=true",
     "0 7 * * * https://raw.githubusercontent.com/toulanboy/scripts/master/weibo/weibotalk.js, tag=微博超话, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/weibo.png, enabled=true",
-    "55 6 * * * https://raw.githubusercontent.com/Sunert/Scripts/master/Task/weibo.js, tag=微博&钱包, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/weibo.png, enabled=true",
-    "0 22 * * * https://raw.githubusercontent.com/Sunert/Scripts/master/Task/youth_gain.js, tag=中青看点Mission, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/youth_gain.png, enabled=true"
+    "55 6 * * * https://raw.githubusercontent.com/Sunert/Scripts/master/Task/weibo.js, tag=微博&钱包, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/weibo.png, enabled=true"
  ]
 }
