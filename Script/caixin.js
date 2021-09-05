@@ -1,5 +1,5 @@
 /*
-CaiXinZhouKan Unlock (by WowYiJiu)
+CaiXinZhouKan Unlock
 Quantumult X:
 ^http:\/\/ipadcms\.caixin\.com\/tmp\/articles url script-response-body https://raw.githubusercontent.com/WowYiJiu/Personal/main/Script/CXZK.js
 hostname = ipadcms.caixin.com
