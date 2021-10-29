@@ -4,7 +4,6 @@
  "task": [
     "30 17 * * * https://raw.githubusercontent.com/WowYiJiu/Personal/main/Script/xmSport.js, tag=小米运动, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/xmyd.png, enabled=true",
     "0 6 * * * https://raw.githubusercontent.com/NobyDa/Script/master/52pojie-DailyBonus/52pojie.js, tag=吾爱破解, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/52pj.png, enabled=true",
-    "15 6 * * * https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/script/10010/unicom_signin.min.js, tag=联通, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/10010.png, enabled=true",
     "5 6 * * * https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/script/smzdm/smzdm_signin.js, tag=什么值得买SignIn, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/smzdm.png, enabled=true",
     "10 6 * * * https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/script/smzdm/smzdm_mission.js, tag=什么值得买Mission, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/smzdm.png, enabled=true",
     "20 6 * * * https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/script/manmanbuy/manmanbuy_checkin.js, tag=慢慢买, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/manmanbuy.png, enabled=true",
