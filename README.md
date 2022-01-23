@@ -40,12 +40,12 @@
 - [@evilbutcher](https://github.com/evilbutcher)
 - [@toulanboy](https://github.com/toulanboy)
 - [@Choler](https://github.com/Choler)
-- [@langkhach270389](https://github.com/langkhach270389)
 - [@nzw9314](https://github.com/nzw9314)
 - [@KOP-XIAO](https://github.com/KOP-XIAO)
 ### 分流规则作者 (排名不分先后）
 - [@DivineEngine](https://github.com/DivineEngine)
 - [@blackmatrix7](https://github.com/blackmatrix7)
+- [@app2smile](https://github.com/app2smile)
 ### 图标作者 (排名不分先后）
 - [@Koolson](https://github.com/Koolson)
 - [@Orz-3](https://github.com/Orz-3)
