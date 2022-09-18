@@ -5,7 +5,7 @@
     "30 17 * * * https://raw.githubusercontent.com/WowYiJiu/Personal/main/Script/xmSport.js, tag=小米运动, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/xmyd.png, enabled=true",
     "0,5 6 * * * https://raw.githubusercontent.com/NobyDa/Script/master/52pojie-DailyBonus/52pojie.js, tag=吾爱破解, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/52pj.png, enabled=true",
     "30 7 * * * https://raw.githubusercontent.com/NobyDa/Script/master/iQIYI-DailyBonus/iQIYI.js, tag=爱奇艺, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/iQIYI.png, enabled=true",
-    "10 6 * * * https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/script/smzdm/smzdm_signin.js, tag=什么值得买, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/smzdm.png, enabled=true",
+    "10 6 * * * https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/script/smzdm/smzdm_daily.js, tag=什么值得买, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/smzdm.png, enabled=true",
     "20 6 * * * https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/script/manmanbuy/manmanbuy_checkin.js, tag=慢慢买, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/manmanbuy.png, enabled=true",
     "25 6 * * * https://raw.githubusercontent.com/chavyleung/scripts/master/10000/10000.js, tag=10000, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/10000.png, enabled=true",
     "30 6 * * * https://raw.githubusercontent.com/chavyleung/scripts/master/ithome/ithome.js, tag=IT之家, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/ithome.png, enabled=true",
