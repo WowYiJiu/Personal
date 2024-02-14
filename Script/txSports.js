@@ -223,7 +223,11 @@ function getCookie() {
     if (CK) {
         let keys = ['main_login', 'video_platform', 'vqq_access_token', 'vqq_appid', 'vqq_openid'];
         let ck = extractValues(CK, keys)
-        if (txSportsCookie.length === 0){
+        if (typeof txSportsCookie === 'undefined'){
+            $.setdata(ck, 'txSports');
+            $.log(`Cookie: ${ck}`);
+            $.msg($.name, '🎉 Cookie写入成功', '');
+        } else if(txSportsCookie.length === 0){
             $.setdata(ck, 'txSports');
             $.log(`Cookie: ${ck}`);
             $.msg($.name, '🎉 Cookie写入成功', '');
