@@ -1,238 +1,213 @@
 /*
-脚本名称：腾讯体育签到脚本
-脚本说明：本脚本仅适用于腾讯体育每日签到，仅测试QuantumultX
-环境变量：txSports
+脚本名称：G动签到脚本
+下载地址：https://apps.apple.com/cn/app/g%E5%8A%A8-%E5%87%AF%E6%A0%BC%E5%B0%94%E8%BF%90%E5%8A%A8%E9%94%BB%E7%82%BC%E8%BD%AF%E4%BB%B6/id1096015822
+脚本说明：本脚本仅适用于G动每日签到，仅测试QuantumultX
+环境变量：gdCookie、gd_accessToken
 脚本作者：WowYiJiu
 更新时间：2024-2-16
-脚本来源：https://raw.githubusercontent.com/WowYiJiu/Personal/main/Script/txSports.js
+脚本来源：https://raw.githubusercontent.com/WowYiJiu/Personal/main/Script/gdong.js
 ====================================================================================================
-获取Cookie说明：
-进入腾讯体育app，点击右下角我的，点击头像下的VIP信息进入体育VIP会员中心看到系统消息提示'成功'即可
+获取Cookie和access_token说明：
+进入G动app，点击底部锻炼和我的两个按钮，看到系统消息提示'获取Cookie成功'和'获取access_token成功'即可
 获取Cookie后, 请将Cookie脚本禁用并移除主机名，以免产生不必要的MITM.
 
 配置 (QuanX)
 [MITM]
-video.qq.com
+gdongapi.wo-ish.com
 
 [rewrite_local]
-^https:\/\/video\.qq\.com\/cookie\/1.0.0\/cookie\.html? url script-request-header https://raw.githubusercontent.com/WowYiJiu/Personal/main/Script/txSports.js
+^https:\/\/gdongapi\.wo-ish\.com\/user\/getUInfo url script-request-header https://raw.githubusercontent.com/WowYiJiu/Personal/main/Script/gdong.js
+^https:\/\/gdongapi\.wo-ish\.com\/MsgBoard\/ShupUpV5 url script-request-body https://raw.githubusercontent.com/WowYiJiu/Personal/main/Script/gdong.js
 
 [task_local]
-10 7 * * * https://raw.githubusercontent.com/WowYiJiu/Personal/main/Script/txSports.js, tag=腾讯体育, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/txSports.png, enabled=true
+10 7 * * * https://raw.githubusercontent.com/WowYiJiu/Personal/main/Script/gdong.js, tag=G动, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/gdong.png, enabled=true
 ====================================================================================================
 */
-const $ = new Env('腾讯体育');
+const $ = new Env('G动');
 
-let txSportsCookie = $.getdata('txSports');
+let gdCookie = $.getdata('gdCookie');
+let gd_accessToken = $.getdata('gd_accessToken');
+
 let checkInMsg = '', message = '';
-let disCookie = false, isCheck = false;
+let isCheck = false, isComment = false;
 
 if (isGetCookie = typeof $request !== `undefined`) {
   getCookie();
   $.done();
 } else {
   !(async () => {
-    if (txSportsCookie) {
-        console.log('===== 开始【腾讯体育任务】 =====');
-                await checkIn();
-                if(disCookie){                    
-                    await showMsg();
-                } else {
-                    await getTicket();
-                    await lottery();
-                    await vipScore();
-                    await showMsg();
+    if (gdCookie && gd_accessToken) {
+        console.log('===== 开始【G动任务】 =====');
+                await getSignState();
+                if(!isCheck){
+                    await checkIn();
+                } else{
+                    $.log(`每日签到已完成，跳过签到`);
+                    checkInMsg = `每日签到已完成，跳过签到`;
                 }
+                if(!isComment){
+                    await comment();
+                } else{
+                    $.log(`社区评论已完成，跳过评论`);
+                    message = `社区评论已完成，跳过评论`;
+                }
+                await showMsg();
     } else {
-        $.msg($.name, '【提示】请先获取腾讯体育Cookie', '');
+        $.msg($.name, '【提示】请先获取G动Cookie和access_token', '');
     }
 })()
   .catch((e) => $.logErr(e))
   .finally(() => $.done())
 }
 
-// 签到获取热爱值
+// G动每日签到
 function checkIn() {
     return new Promise((resolve, reject) => {
         let opt = {
-            url: 'https://vip.video.qq.com/rpc/trpc.new_task_system.task_system.TaskSystem/CheckIn?rpc_data=%7B%22task_id%22:8006%7D',
+            url: 'https://gdongapi.wo-ish.com/Sign/SignV52',
             headers: {
-                'Origin': 'https://film.video.qq.com',
-                'Referer': 'https://film.video.qq.com/x/sports-grade/?ovscroll=0&hidetitlebar=1&immersive=1',
-                'Cookie': txSportsCookie
-            }
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Cookie': gdCookie
+            },
+            body: $.queryStr({
+                'access_token' : gd_accessToken
+            })
         }
-        $.get(opt, async (error, resp, data) => {       
-                if(typeof data === 'undefined' ? true : data.length === 0){
-                    disCookie = true;
-                    $.log(`签到失败：Cookie失效, 已清除\n请重新获取Cookie`);
-                    checkInMsg = `签到失败：Cookie失效，已清除\n请重新获取Cookie`;
-                    $.setdata('', 'txSports');
-                } else {
+        $.post(opt, async (error, resp, data) => {       
+                try {
                     var obj = JSON.parse(data);
-                    var code = obj.ret;
-                    if (code === 0 && obj.check_in_score != undefined) {
-                        $.log(`签到成功：获得${obj.check_in_score}热爱值`);
-                        checkInMsg = `签到成功：获得${obj.check_in_score}热爱值`;
-                    }  else if (code === -2002) {
-                        $.log(`签到失败：重复签到`);
-                        checkInMsg = `签到失败：重复签到`;
+                    if (obj.errcode === 0) {
+                        $.log(`签到成功`);
+                        checkInMsg = `签到成功`;
                     } else {
                         $.log(`签到失败：未知错误请查看日志或手动签到!!!\n${obj}`);
                         checkInMsg = `签到失败：未知错误请查看日志或手动签到!!!\n${obj}`;
                     }
-                }
-                resolve();
+                } catch (e) {
+                    $.logErr(e);
+                } finally {
+                    resolve();
+                }  
             }        
         )
     })
 }
 
-// 签到领球票
-function getTicket() {
+// G动社区评论，本请求为评论我的一篇文章
+function comment() {
     return new Promise((resolve, reject) => {
         let opt = {
-            url: 'https://activity.video.qq.com/fcgi-bin/asyn_activity?otype=xjson&act_id=118561&module_id=158089&type=90&option=5',
+            url: 'https://gdongapi.wo-ish.com/MsgBoard/CommentTopicV41',
             headers: {
-                'Origin': 'https://film.video.qq.com',
-                'Referer': 'https://film.video.qq.com/x/sports-vip-channel/?from=tab',
-                'Cookie': txSportsCookie
-            }
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Cookie': gdCookie
+            },
+            body: $.queryStr({
+                'ReplayContext': '%E5%8A%A0%E6%B2%B9%E5%8A%A0%E6%B2%B9%E5%8A%A0%E6%B2%B9',
+                'TopicId': '2876047',
+                'access_token': gd_accessToken
+            })
         }
-        $.get(opt, async (error, resp, data) => {       
+        $.post(opt, async (error, resp, data) => {       
                 try {
                     var obj = JSON.parse(data);
-                    var code = obj.ret;
-                    if (code === 0) {
-                        $.log(`领取每日球票成功, 连续签到${obj.data.day}天`);
-                        message += `领取每日球票成功, 连续签到${obj.data.day}天\n`;             
-                    }  else if (code === -2021) {
-                        $.log(`领取每日球票失败：重复领取`);
-                        message += `领取每日球票失败：重复领取\n`;
+                    if (obj.errcode === 0) {
+                        $.log(`评论成功`);
+                        message = `评论成功`;
                     } else {
-                        $.log(`领取每日球票失败：未知错误请查看日志或手动签到!!!\n${obj}`);
-                        message += `领取每日球票失败：未知错误请查看日志或手动签到!!!\n${obj}\n`;
+                        $.log(`评论失败：未知错误请查看日志或手动评论!!!\n${obj}`);
+                        message = `评论失败：未知错误请查看日志或手动评论!!!\n${obj}`;
                     }
                 } catch (e) {
                     $.logErr(e);
                 } finally {
                     resolve();
-                } 
+                }  
             }        
         )
     })
 }
 
-// 抽抽乐 2024年2月29日10点下线
-function lottery() {
+function getSignState() {
     return new Promise((resolve, reject) => {
         let opt = {
-            url: 'https://activity.video.qq.com/fcgi-bin/asyn_activity?otype=xjson&act_id=118561&module_id=158090&type=100143&option=100',
+            url: 'https://gdongapi.wo-ish.com/Sign/SignStateV51',
             headers: {
-                'Origin': 'https://film.video.qq.com',
-                'Referer': 'https://film.video.qq.com/x/sports-vip-channel/?from=tab',
-                'Cookie': txSportsCookie
-            }
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Cookie': gdCookie
+            },
+            body: $.queryStr({
+                'access_token' : gd_accessToken
+            })
         }
-        $.get(opt, async (error, resp, data) => {       
+        $.post(opt, async (error, resp, data) => {     
                 try {
                     var obj = JSON.parse(data);
-                    var code = obj.ret;
-                    if (code === 0) {
-                    $.log(`抽奖成功: ${obj.lotter_ext}`);
-                    message += `抽奖成功: ${obj.lotter_ext}\n`;
-                    }  else if (code === -904) {
-                    $.log(`抽奖失败：您已经抽过了`);
-                    message += `抽奖失败：您已经抽过了\n`;
-                    } else {
-                    $.log(`抽奖失败：未知错误请查看日志或手动抽奖!!!\n${obj}`);
-                    message += `抽奖失败：未知错误请查看日志或手动抽奖!!!\n${obj}\n`;
-                    }
-                } catch (e) {
-                    $.logErr(e);
-                } finally {
-                    resolve();
-                } 
-            }        
-        )
-    })
-}
-
-// 获取今日签到所得热爱值和总热爱值
-function vipScore() {
-    return new Promise((resolve, reject) => {
-        let opt = {
-            url: 'https://vip.video.qq.com/rpc/trpc.vipscore.read.VScoreRead/GetScoreFlowH5?rpc_data=%7B%22type%22:3002,%22page_context%22:%7B%22page_size%22:15,%22cur_page_index%22:0%7D%7D',
-            headers: {
-                'Origin': 'https://film.video.qq.com',
-                'Referer': 'https://film.video.qq.com/x/sports-grade/growth/?ptag=SportsGrade',
-                'Cookie': txSportsCookie
-            }
-        }
-        $.get(opt, async (error, resp, data) => {
-                try {
-                    var obj = JSON.parse(data);
-                    var scoreList = obj.flow_list;
-                    for(let i = 0; i < scoreList.length; i++){
-                        if(isToday(scoreList[i].flow_time * 1000) && scoreList[i].pay_source === 104){
-                            $.log(`今日签到获得热爱值：${scoreList[i].score} 总热爱值：${scoreList[i].level_score}`);
-                            message += `今日签到获得热爱值：${scoreList[i].score} 总热爱值：${scoreList[i].level_score}`;
+                    if (obj.errcode === 0) {
+                        var taskList = obj.data.otherGetMethon;
+                        if(taskList[0].isFinish == 1){
                             isCheck = true;
-                            break;
-                        } 
-                    }
-                    if(!isCheck){
-                        $.log(`您今日还未签到, 请别忘了哦`);
-                        message += `您今日还未签到, 请别忘了哦`;
+                        }
+                        if(taskList[1].isFinish == 1){
+                            isComment = true;
+                        }
+                    } else {
+                        $.log(`查询失败：未知错误请查看日志!!!\n${obj}`);
+                        checkInMsg = `查询失败：未知错误请查看日志!!!\n${obj}`;
                     }
                 } catch (e) {
                     $.logErr(e);
                 } finally {
                     resolve();
-                } 
-            }
+                }  
+            }        
         )
     })
 }
 
 function getCookie() {
-    const CK = $request.headers['Cookie'] || $request.headers['cookie'];
-    if (CK) {
-        let keys = ['main_login', 'video_platform', 'vqq_access_token', 'vqq_appid', 'vqq_openid'];
-        let ck = extractValues(CK, keys)
-        if (typeof txSportsCookie === 'undefined' || (txSportsCookie && txSportsCookie.length === 0)){
-            $.setdata(ck, 'txSports');
-            $.log(`Cookie: ${ck}`);
-            $.msg($.name, '🎉 Cookie写入成功', '');
-        } else if(ck != txSportsCookie){
-            $.setdata(ck, 'txSports');
-            $.log(`Cookie: ${ck}`);
-            $.msg($.name, '🎉 Cookie更新成功', '');
+    if($request&&$request.method!=`OPTIONS`&&$request.url.match(/\/user\/getUInfo/)) {
+        const cookie = $request.headers['Cookie'] || $request.headers['cookie'];
+        if (cookie) {
+            if (typeof gdCookie === 'undefined' || (gdCookie && gdCookie.length === 0)){
+                $.setdata(cookie, 'gdCookie');
+                $.log(`Cookie: ${cookie}`);
+                $.msg($.name, '🎉 Cookie写入成功', '');
+            } else if(cookie != gdCookie){
+                $.setdata(cookie, 'gdCookie');
+                $.log(`Cookie: ${cookie}`);
+                $.msg($.name, '🎉 Cookie更新成功', '');
+            } else {
+                $.msg($.name, '⚠️ Cookie未变动 跳过更新', '');
+            }    
         } else {
-            $.msg($.name, '⚠️ Cookie未变动 跳过更新', '');
+                $.msg($.name, '⚠️ Cookie未找到', '');    
         }
-    } else {
-        $.msg($.name, '⚠️ Cookie未找到', '');
+    }
+    if($request&&$request.method!=`OPTIONS`&&$request.url.match(/\/MsgBoard\/ShupUpV5/)) {
+        const gdBody = new URLSearchParams($request.body);
+        let acc_token = '';
+        if(gdBody.has('access_token')){
+            acc_token = gdBody.get('access_token');
+            if (typeof gd_accessToken === 'undefined' || (gd_accessToken && gd_accessToken.length === 0)){
+                $.setdata(acc_token, 'gd_accessToken');
+                $.log(`gd_accessToken: ${acc_token}`);
+                $.msg($.name, '🎉 access_token写入成功', '');
+            } else if(acc_token != gd_accessToken){
+                $.setdata(acc_token, 'gd_accessToken');
+                $.log(`gd_accessToken: ${acc_token}`);
+                $.msg($.name, '🎉 access_token更新成功', '');
+            } else {
+                $.msg($.name, '⚠️ access_token未变动 跳过更新', '');
+            } 
+        } else {
+            $.msg($.name, '⚠️ access_token未找到', '');    
+        }
     }
 }
 
 async function showMsg() {
     $.msg($.name, checkInMsg, message);
-}
-
-// 提取Cookie的指定字段
-function extractValues(str, keys) {
-    let results = keys.map(key => str.split('; ').find(s => s.startsWith(key + '=')));
-    return results.join(';');
-}
-
-// 判断时间戳是不是今天
-function isToday(timestamp) {
-    let date = new Date(timestamp);
-    let today = new Date();
-    return date.getDate() === today.getDate() && 
-           date.getMonth() === today.getMonth() && 
-           date.getFullYear() === today.getFullYear();
 }
 
 // prettier-ignore

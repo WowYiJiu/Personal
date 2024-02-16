@@ -12,6 +12,7 @@
     "50 6 * * * https://raw.githubusercontent.com/FoKit/Scripts/main/scripts/jparking_sign.js, tag=捷停车, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/jParking.png, enabled=true",
     "0 7 * * * https://raw.githubusercontent.com/shengetui/qx/main/xxcd.js, tag=星星充电, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/StarCharge.png, enabled=true",
     "10 7 * * * https://raw.githubusercontent.com/WowYiJiu/Personal/main/Script/txSports.js, tag=腾讯体育, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/txSports.png, enabled=true",
+    "15 7 * * * https://raw.githubusercontent.com/WowYiJiu/Personal/main/Script/gdong.js, tag=G动, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/gdong.png, enabled=true",
     "0 12 * * * https://raw.githubusercontent.com/Yuheng0101/X/main/Tasks/60s.js, tag=每天60s读懂世界, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/60s.jpg, enabled=true"
  ]
 }
