@@ -228,7 +228,7 @@ async function addAGNum(){
             var a = {
                 activity_id: activity_id,
                 millis: +new Date()
-            }, o = e.encrypt(JSON.stringify(a));
+            }, o = encrypt(JSON.stringify(a));
             let opt = {
                 url: 'https://burning.wo-adv.cn/actvt/addAGNum.do',
                 headers: {
