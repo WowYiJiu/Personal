@@ -12,7 +12,7 @@
 
 配置 (QuanX)
 [MITM]
-video.qq.com
+hostname = video.qq.com
 
 [rewrite_local]
 ^https:\/\/video\.qq\.com\/cookie\/1.0.0\/cookie\.html? url script-request-header https://raw.githubusercontent.com/WowYiJiu/Personal/main/Script/txSports.js

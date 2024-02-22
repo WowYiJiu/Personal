@@ -13,7 +13,7 @@
 
 配置 (QuanX)
 [MITM]
-gdongapi.wo-ish.com
+hostname = gdongapi.wo-ish.com
 
 [rewrite_local]
 ^https:\/\/gdongapi\.wo-ish\.com\/user\/getUInfo url script-request-header https://raw.githubusercontent.com/WowYiJiu/Personal/main/Script/gdong.js
