@@ -8,8 +8,7 @@
 ****************************************************************************************************
 更新记录：2024-2-22 
        - 增加draw_nums环境变量，如果查询不到剩余抽奖次数就按draw_nums次数抽奖，默认为1次
-        （新注册的号手动进入会员专属活动星燃送福利后抽奖页面就可以查询到抽奖次数，不清楚是否每个活动都要手动进入）
-      🧊 抽奖存在有真实次数但是抽奖失败，重复执行又可以正常抽奖的问题（暂时不清楚是什么情况）
+       - 增加addAGNum()、addDataCount()两个方法
 ****************************************************************************************************
 ====================================================================================================
 获取Cookie说明：
@@ -94,6 +93,8 @@ if (isGetCookie = typeof $request !== `undefined`) {
                     await $.wait(1000);
                     await getActivityId();
                     await $.wait(1000);
+                    await addAGNum();
+                    await addDataCount();
                     await getButtonStatus();
                     await $.wait(1000);
                     if(!isGetPrize){
@@ -194,24 +195,96 @@ async function getActivityId(){
             body: o
         }
         $.post(opt, async (error, resp, data) => {
+            try {
+                if (error) {
+                  $.log(`${JSON.stringify(error)}`)
+                  $.log(`${$.name} API请求失败，请检查网路重试`)
+                } else {
+                  if (safeGet(data)) {
+                    var obj = JSON.parse(data);
+                    var activityList = obj.resultData;
+                    for(let activity of activityList) {
+                        let str = activity.ACTIVITY_ENTRANCE_URL;
+                        let reg = /activity_id=([^&]*)/;
+                        if (str.includes('activity_id')){
+                            activity_id = str.match(reg)[1];
+                            break
+                        }
+                    }
+                }
+            }
+            } catch (e) {
+            $.logErr(e, resp)
+            } finally {
+            resolve(data);
+            }   
+        }        
+    )
+})
+}
+
+async function addAGNum(){
+    return new Promise((resolve, reject) => {
+            var a = {
+                activity_id: a.data.activity_id,
+                millis: +new Date()
+            }, o = e.encrypt(JSON.stringify(a));
+            let opt = {
+                url: 'https://burning.wo-adv.cn/actvt/addAGNum.do',
+                headers: {
+                    "cookie": cookie,
+                    "content-type": "application/json" 
+                },
+                body: o
+            }
+            $.post(opt, async (error, resp, data) => {
                 try {
                     if (error) {
                     $.log(`${JSON.stringify(error)}`)
                     $.log(`${$.name} API请求失败，请检查网路重试`)
                     } else {
-                    if (safeGet(data)) {
-                        var obj = JSON.parse(data);
-                        var activityList = obj.resultData;
-                        for(let activity of activityList) {
-                            let str = activity.ACTIVITY_ENTRANCE_URL;
-                            let reg = /activity_id=([^&]*)/;
-                            if (str.includes('activity_id')){
-                                activity_id = str.match(reg)[1];
-                                break
+                        if (safeGet(data)) {
+                            var obj = JSON.parse(data);
+                            if(obj.resultCode !== 0){
+                                $.log(data)
+                                message += `${data}\n`
                             }
                         }
                     }
-                }
+                } catch (e) {
+                $.logErr(e, resp)
+                } finally {
+                resolve(data);
+                }   
+            }        
+        )
+    })
+}
+
+async function addDataCount(){
+    return new Promise((resolve, reject) => {
+            let opt = {
+                url: 'https://burning.wo-adv.cn/integral/addDataCount.do',
+                headers: {
+                    "cookie": cookie,
+                    "content-type": "application/json" 
+                },
+                body: `{"data_count_type":10,"product_id":0,"activity_id":"${activity_id}"}`
+            }
+            $.post(opt, async (error, resp, data) => {
+                try {
+                    if (error) {
+                    $.log(`${JSON.stringify(error)}`)
+                    $.log(`${$.name} API请求失败，请检查网路重试`)
+                    } else {
+                        if (safeGet(data)) {
+                            var obj = JSON.parse(data);
+                            if(obj.resultCode !== 0){
+                                $.log(data)
+                                message += `${data}\n`
+                            }
+                        }
+                    }
                 } catch (e) {
                 $.logErr(e, resp)
                 } finally {
@@ -242,8 +315,8 @@ async function getButtonStatus(){
                     if (safeGet(data)) {
                         var obj = JSON.parse(data);
                         if(obj.resultCode === 1){
-                            $.log(`查询剩余抽奖次数失败，当前设定抽奖次数${draw_nums}次`)
-                            message += `查询剩余抽奖次数失败，当前设定抽奖次数${draw_nums}次\n`;
+                            $.log(`【账号${$.index}】查询剩余抽奖次数失败\n当前设定抽奖次数${draw_nums}次`)
+                            message += `【账号${$.index}】查询剩余抽奖次数失败\n当前设定抽奖次数${draw_nums}次\n`;
                             draw_num = draw_nums;
                         } else {
                                 if(obj.resultData.BUTTON_STATUS === 2){
@@ -349,7 +422,7 @@ async function getInfo(){
 function getCookie() {
     if($request && $request.method != `OPTIONS` && $request.url.match(/\/integral\/queryTemlateList\.do/)){
         try {
-            const cookie = $request.headers['cookie'];
+            const cookie = $request.headers['Cookie'] || $request.headers['cookie'];
             if(burningCookies){
                 if(burningCookies.indexOf(cookie) > -1){
                     $.msg($.name, '获取Cookie重复，本次跳过', '不用请自行关闭重写!');
