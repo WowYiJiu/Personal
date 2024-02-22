@@ -226,7 +226,7 @@ async function getActivityId(){
 async function addAGNum(){
     return new Promise((resolve, reject) => {
             var a = {
-                activity_id: a.data.activity_id,
+                activity_id: activity_id,
                 millis: +new Date()
             }, o = e.encrypt(JSON.stringify(a));
             let opt = {
@@ -314,7 +314,7 @@ async function getButtonStatus(){
                 } else {
                     if (safeGet(data)) {
                         var obj = JSON.parse(data);
-                        if(obj.resultCode === 1){
+                        if(obj.resultCode !== 0){
                             $.log(`【账号${$.index}】查询剩余抽奖次数失败\n当前设定抽奖次数${draw_nums}次`)
                             message += `【账号${$.index}】查询剩余抽奖次数失败\n当前设定抽奖次数${draw_nums}次\n`;
                             draw_num = draw_nums;
