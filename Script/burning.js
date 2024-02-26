@@ -9,6 +9,8 @@
 更新记录：2024-2-22 
        - 增加draw_nums环境变量，如果查询不到剩余抽奖次数就按draw_nums次数抽奖，默认为1次
        - 增加addAGNum()、addDataCount()两个方法
+         2024-2-26
+       - 将只查询第一个活动id进行抽奖改为查询所有活动id，并找到正在进行的活动进行抽奖
 ****************************************************************************************************
 ====================================================================================================
 获取Cookie说明：
@@ -86,33 +88,36 @@ if (isGetCookie = typeof $request !== `undefined`) {
         if(nameArr[i]){
             $.log(`账号[${$.index}] [${nameArr[i]}]`)
         } 
-                await checkIn();
-                if(disCookie){
-                    disCookie = false;
-                } else {
+        await checkIn();
+        if(disCookie){
+            disCookie = false;
+        } else {
+            await $.wait(1000);
+            await getActivityIds();
+            await $.wait(1000);
+            for(let activityId of activityIds){
+                await queryActivity(activityId);
+            }
+            await addAGNum();
+            await addDataCount();
+            await getButtonStatus();
+            await $.wait(1000);
+            if(!isGetPrize){
+                for(let i = 0; i < draw_num; i++){
                     await $.wait(1000);
-                    await getActivityId();
-                    await $.wait(1000);
-                    await addAGNum();
-                    await addDataCount();
-                    await getButtonStatus();
-                    await $.wait(1000);
-                    if(!isGetPrize){
-                        for(let i = 0; i < draw_num; i++){
-                            await $.wait(1000);
-                            await getPrize();
-                        }
-                    } else {
-                        await getPrize();
-                    }
-                    await $.wait(1000);
-                    await getInfo();
-                if(i+1 != cookieArr.length){
-                    var time = getRandomInt(5000, 10000);
-                    $.log(`随机等待${time/1000}秒后继续执行`)
-                    await $.wait(time);
-                    }
+                    await getPrize();
                 }
+            } else {
+                await getPrize();
+            }
+            await $.wait(1000);
+            await getInfo();
+            if(i+1 != cookieArr.length){
+                var time = getRandomInt(5000, 10000);
+                $.log(`随机等待${time/1000}秒后继续执行`)
+                await $.wait(time);
+                }
+            }
             if(i === cookieArr.length -1){
                 await SendMsg(message);
             }
@@ -180,8 +185,8 @@ async function checkIn() {
     })
 }
 
-// 查询抽奖活动id
-async function getActivityId(){
+// 查询所有抽奖活动id
+async function getActivityIds(){
     return new Promise((resolve, reject) => {
         var a = {
             millis: +new Date()
@@ -195,33 +200,69 @@ async function getActivityId(){
             body: o
         }
         $.post(opt, async (error, resp, data) => {
-            try {
-                if (error) {
-                  $.log(`${JSON.stringify(error)}`)
-                  $.log(`${$.name} API请求失败，请检查网路重试`)
-                } else {
-                  if (safeGet(data)) {
-                    var obj = JSON.parse(data);
-                    var activityList = obj.resultData;
-                    for(let activity of activityList) {
-                        let str = activity.ACTIVITY_ENTRANCE_URL;
-                        let reg = /activity_id=([^&]*)/;
-                        if (str.includes('activity_id')){
-                            activity_id = str.match(reg)[1];
-                            break
+                try {
+                    if (error) {
+                    $.log(`${JSON.stringify(error)}`)
+                    $.log(`${$.name} API请求失败，请检查网路重试`)
+                    } else {
+                    if (safeGet(data)) {
+                        var obj = JSON.parse(data);
+                        var activityList = obj.resultData;
+                        for(let activity of activityList) {
+                            let str = activity.ACTIVITY_ENTRANCE_URL;
+                            let reg = /activity_id=([^&]*)/;
+                            if (str.includes('activity_id')){
+                                activityId= str.match(reg)[1];
+                                activityIds.push(activityId);
+                            }
                         }
                     }
                 }
-            }
-            } catch (e) {
-            $.logErr(e, resp)
-            } finally {
-            resolve(data);
-            }   
-        }        
-    )
-})
+                } catch (e) {
+                $.logErr(e, resp)
+                } finally {
+                resolve(data);
+                }   
+            }        
+        )
+    })
 }
+
+// 查询正在进行的抽奖活动id
+async function queryActivity(activityId){
+    return new Promise((resolve, reject) => {
+        let opt = {
+            url: 'https://burning.wo-adv.cn/draw/queryActivity.do',
+            headers: {
+                "cookie": cookie,
+                "content-type": "application/json" 
+            },
+            body: `{"activity_id": ${activityId}}`
+        }
+        $.post(opt, async (error, resp, data) => {
+                try {
+                    if (error) {
+                    $.log(`${JSON.stringify(error)}`)
+                    $.log(`${$.name} API请求失败，请检查网路重试`)
+                    } else {
+                    if (safeGet(data)) {
+                        var obj = JSON.parse(data);
+                        if (obj.resultData.ACTIVITY_STATUS === 1){
+                            activity_id = activityId;
+                            return
+                        };
+                    }
+                }
+                } catch (e) {
+                $.logErr(e, resp)
+                } finally {
+                resolve(data);
+                }   
+            }        
+        )
+    })
+}
+
 
 async function addAGNum(){
     return new Promise((resolve, reject) => {
