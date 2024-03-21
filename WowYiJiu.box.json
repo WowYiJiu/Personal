@@ -33,7 +33,7 @@
                 {
                   "id": "isLottery",
                   "name": "抽抽乐",
-                  "val": "false",
+                  "val": false,
                   "type": "boolean",
                   "desc": "抽抽乐开关"
                 }

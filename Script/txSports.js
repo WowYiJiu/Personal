@@ -228,8 +228,8 @@ async function lottery() {
                     $.log(`✅ 抽奖成功: ${obj.lotter_ext}`);
                     message += `✅ 抽奖成功: ${obj.lotter_ext}\n`;
                     }  else if (code === -904) {
-                    $.log(`🟡 抽奖失败：您已经抽过了`);
-                    message += `🟡 抽奖失败：您已经抽过了\n`;
+                    $.log(`🔁 抽奖失败：您已经抽过了`);
+                    message += `🔁 抽奖失败：您已经抽过了\n`;
                     } else {
                     $.log(`❗️ 抽奖失败：未知错误请查看日志或手动抽奖!!!\n${obj}`);
                     message += `❗️ 抽奖失败：未知错误请查看日志或手动抽奖!!!\n${obj}\n`;
