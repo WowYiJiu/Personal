@@ -364,7 +364,7 @@ async function getVersion() {
                     if (error) {
                         $.log(`😠 github API请求失败，请检查网路重试`)
                     } else {
-                        latestVersion = data.match(/@version\s+(v\d+\.\d+\.\d+)/);
+                        latestVersion = data.match(/@version\s+(v\d+\.\d+\.\d+)/)[1];
                     }
                 } catch (e) {
                     $.logErr(e, resp);
