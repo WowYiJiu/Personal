@@ -1,19 +1,48 @@
 {
- "name": "WowYiJiu gallery",
- "description": "自用的task脚本",
+ "name": "WowYiJiu 自用脚本",
+ "description": "https://github.com/WowYiJiu/Personal",
  "task": [
-    "0 6 * * * https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/script/smzdm/smzdm_daily.js, tag=什么值得买, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/smzdm.png, enabled=true",
-    "10 6 * * * https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/script/manmanbuy/manmanbuy_checkin.js, tag=慢慢买, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/manmanbuy.png, enabled=true",
-    "15 6 * * * https://raw.githubusercontent.com/chavyleung/scripts/master/ithome/ithome.js, tag=IT之家, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/ithome.png, enabled=true",
-    "20 6 * * * https://raw.githubusercontent.com/chavyleung/scripts/master/feng/feng.js, tag=威锋网, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/feng.png, enabled=true",
-    "30 6 * * * https://raw.githubusercontent.com/ClydeTime/Quantumult/main/Script/Task/xmlySign.js, tag=喜马拉雅, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/ximalaya.png, enabled=true",
-    "40 6 * * * https://raw.githubusercontent.com/wf021325/qx/master/task/ampDache.js, tag=高德地图, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/gaode.jpg, enabled=true",
-    "45 6 * * * https://raw.githubusercontent.com/FoKit/Scripts/main/scripts/weibo_sign.js, tag=新浪微博, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/weibo.png, enabled=true",
-    "50 6 * * * https://raw.githubusercontent.com/FoKit/Scripts/main/scripts/jparking_sign.js, tag=捷停车, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/jParking.png, enabled=true",
-    "0 7 * * * https://raw.githubusercontent.com/shengetui/qx/main/xxcd.js, tag=星星充电, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/StarCharge.png, enabled=true",
-    "10 7 * * * https://raw.githubusercontent.com/WowYiJiu/Personal/main/Script/txSports.js, tag=腾讯体育, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/txSports.png, enabled=true",
-    "15 7 * * * https://raw.githubusercontent.com/WowYiJiu/Personal/main/Script/gdong.js, tag=G动, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/gdong.png, enabled=true",
-    "20 7 * * * https://raw.githubusercontent.com/WowYiJiu/Personal/main/Script/burning.js, tag=超燃汇, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/burning.png, enabled=true",
-    "0 12 * * * https://raw.githubusercontent.com/Yuheng0101/X/main/Tasks/60s.js, tag=每天60s读懂世界, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/60s.jpg, enabled=true"
+   {
+      "config": "0 6 * * * https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/script/smzdm/smzdm_daily.js, tag=什么值得买, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/smzdm.png, enabled=true"
+   },
+   {
+      "config": "10 6 * * * https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/script/manmanbuy/manmanbuy_checkin.js, tag=慢慢买, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/manmanbuy.png, enabled=true"
+   },
+   {
+      "config": "15 6 * * * https://raw.githubusercontent.com/chavyleung/scripts/master/ithome/ithome.js, tag=IT之家, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/ithome.png, enabled=true"
+   }, 
+   {
+      "config": "20 6 * * * https://raw.githubusercontent.com/chavyleung/scripts/master/feng/feng.js, tag=威锋网, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/feng.png, enabled=true"
+   },
+   {
+      "config": "30 6 * * * https://raw.githubusercontent.com/ClydeTime/Quantumult/main/Script/Task/xmlySign.js, tag=喜马拉雅, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/ximalaya.png, enabled=true"
+   },
+   {
+      "config": "40 6 * * * https://raw.githubusercontent.com/wf021325/qx/master/task/ampDache.js, tag=高德地图, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/gaode.jpg, enabled=true"
+   },
+   {
+      "config": "45 6 * * * https://raw.githubusercontent.com/FoKit/Scripts/main/scripts/weibo_sign.js, tag=新浪微博, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/weibo.png, enabled=true"
+   }, 
+   {
+      "config": "50 6 * * * https://raw.githubusercontent.com/FoKit/Scripts/main/scripts/jparking_sign.js, tag=捷停车, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/jParking.png, enabled=true"
+   },
+   {
+      "config": "0 7 * * * https://raw.githubusercontent.com/shengetui/qx/main/xxcd.js, tag=星星充电, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/StarCharge.png, enabled=true"
+   },
+   {
+      "config": "10 7 * * * https://raw.githubusercontent.com/WowYiJiu/Personal/main/Script/txSports.js, tag=腾讯体育, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/Color/txSports.png, enabled=true",
+      "addons": "https://raw.githubusercontent.com/WowYiJiu/Personal/main/rewrite/get_txSports_cookie.conf, tag=腾讯体育, update-interval=172800, opt-parser=false, enabled=false"
+   },
+   {
+      "config": "15 7 * * * https://raw.githubusercontent.com/WowYiJiu/Personal/main/Script/gdong.js, tag=G动, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/Color/gdong.png, enabled=true",
+      "addons": "https://raw.githubusercontent.com/WowYiJiu/Personal/main/rewrite/get_gdong_cookie.conf, tag=G动, update-interval=172800, opt-parser=false, enabled=false"
+   },
+   {
+      "config": "20 7 * * * https://raw.githubusercontent.com/WowYiJiu/Personal/main/Script/burning.js, tag=超燃汇, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/Color/burning.png, enabled=true",
+      "addons": "https://raw.githubusercontent.com/WowYiJiu/Personal/main/rewrite/get_burning_cookie.conf, tag=超燃汇, update-interval=172800, opt-parser=false, enabled=false"
+   },
+   {
+      "config": "0 12 * * * https://raw.githubusercontent.com/Yuheng0101/X/main/Tasks/60s.js, tag=每天60s读懂世界, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/60s.jpg, enabled=true"
+   }
  ]
 }
