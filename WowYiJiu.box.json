@@ -12,11 +12,11 @@
             "author": "@WowYiJiu",
             "repo": "https://github.com/WowYiJiu/Personal/blob/main/Script/gdong.js",
             "script": "https://raw.githubusercontent.com/WowYiJiu/Personal/main/Script/gdong.js",
-            "keys": ["gdCookie, gd_accessToken"],
+            "keys": ["gdCookie", "gd_accessToken"],
             "descs_html": [
             "<h4 align=\"center\">获取Cookie以及脚本配置请查看<a href=\"https://raw.githubusercontent.com/WowYiJiu/Personal/main/Script/gdong.js\">脚本注释</a></h4>"
             ],
-            "icons": ["https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/Alpha/gdong.png, https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/Color/gdong.png"]
+            "icons": ["https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/Alpha/gdong.png", "https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/Color/gdong.png"]
         },
         {
             "id": "txSports",
@@ -24,11 +24,11 @@
             "author": "@WowYiJiu",
             "repo": "https://github.com/WowYiJiu/Personal/blob/main/Script/txSports.js",
             "script": "https://raw.githubusercontent.com/WowYiJiu/Personal/main/Script/txSports.js",
-            "keys": ["txSports, isLottery"],
+            "keys": ["txSports", "isLottery"],
             "descs_html": [
             "<h4 align=\"center\">获取Cookie以及脚本配置请查看<a href=\"https://raw.githubusercontent.com/WowYiJiu/Personal/main/Script/txSports.js\">脚本注释</a></h4>"
             ],
-            "icons": ["https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/Alpha/txSports.png, https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/Color/txSports.png"],
+            "icons": ["https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/Alpha/txSports.png", "https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/Color/txSports.png"],
             "settings": [
                 {
                   "id": "isLottery",
@@ -45,11 +45,11 @@
             "author": "@WowYiJiu",
             "repo": "https://github.com/WowYiJiu/Personal/blob/main/Script/burning.js",
             "script": "https://raw.githubusercontent.com/WowYiJiu/Personal/main/Script/burning.js",
-            "keys": ["burningCookie, draw_nums"],
+            "keys": ["burningCookie", "draw_nums"],
             "descs_html": [
             "<h4 align=\"center\">获取Cookie以及脚本配置请查看<a href=\"https://raw.githubusercontent.com/WowYiJiu/Personal/main/Script/burning.js\">脚本注释</a></h4>"
             ],
-            "icons": ["https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/Alpha/burning.png, https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/Color/burning.png"],
+            "icons": ["https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/Alpha/burning.png", "https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/Color/burning.png"],
             "settings": [
                 {
                     "id": "burningCookie",

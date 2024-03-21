@@ -318,13 +318,12 @@ async function getNotice() {
         
         let notice = new Promise((resolve) => {
             let opt = {
-                url: 'https://cdn.jsdelivr.net/gh/WowYiJiu/Personal@main/notice.json'
+                url: 'https://raw.githubusercontent.com/WowYiJiu/Personal/main/notice.json'
             }
             $.get(opt, async (error, resp, data) => {
                 try {
                     if (error) {
-                        $.log(`${JSON.stringify(error)}`)
-                        $.log('jsDelivr API请求失败，请检查网路重试')
+                        $.log('😠 github API请求失败，请检查网路重试')
                     } else {
                         if (data) {
                             var obj = JSON.parse(data);
@@ -358,15 +357,14 @@ async function getVersion() {
         
         let versionInfo = new Promise((resolve) => {
             let url = {
-                url: `https://cdn.jsdelivr.net/gh/WowYiJiu/Personal@main/Script/txSports.js`,
+                url: `https://raw.githubusercontent.com/WowYiJiu/Personal/main/Script/txSports.js`,
             }
             $.get(url, async (error, resp, data) => {
                 try {
                     if (error) {
-                        $.log(`${JSON.stringify(error)}`)
-                        $.log(`jsDelivr API请求失败，请检查网路重试`)
+                        $.log(`😠 github API请求失败，请检查网路重试`)
                     } else {
-                        latestVersion = data.match(/@version+(v[d.]+)/)[1];
+                        latestVersion = data.match(/@version\s+(v\d+\.\d+\.\d+)/);
                     }
                 } catch (e) {
                     $.logErr(e, resp);
