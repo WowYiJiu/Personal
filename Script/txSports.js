@@ -39,7 +39,7 @@ https://raw.githubusercontent.com/WowYiJiu/Personal/main/rewrite/get_txSports_co
 const $ = new Env('腾讯体育');
 
 let txSportsCookie = $.getdata('txSports');
-let isLottery = $.getdata('isLottery') || false;
+let isLottery = JSON.parse($.getdata('isLottery') || false);
 let versionMsg = '', message = '';
 let disCookie = false, isCheck = false;
 let currentVersion = 'v1.0.1', latestVersion = '';
