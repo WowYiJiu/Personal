@@ -111,8 +111,9 @@
                     "val": "",
                     "type": "textarea",
                     "autoGrow": true,
-                    "placeholder": "boxjs环境变量名#ql环境变量名#ql备注",
-                    "desc": "多个同步变量换行隔开"
+                    "rows": 5,
+                    "placeholder": "boxjs环境变量名#ql环境变量名#ql备注(同步)\n-boxjs环境变量名#ql环境变量名#ql备注(不同步)",
+                    "desc": "多个同步变量换行隔开，boxjs环境变量名前加-表示不同步"
                 },
                 {
                     "id": "@ql.ip",

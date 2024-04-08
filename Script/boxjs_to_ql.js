@@ -3,7 +3,7 @@
 *@desp       boxjs同步环境变量到青龙面板
 *@env        sync_env__key
 *@author     WowYiJiu
-*@updated    2024-4-6
+*@updated    2024-4-8
 *@link       https://raw.githubusercontent.com/WowYiJiu/Personal/main/Script/boxjs_to_ql.js
 *@thanks     @dompling: https://github.com/dompling
 
@@ -28,6 +28,10 @@ let envsData = envKeys.split('\n');
 var syncEnvs = [];
 for (var i = 0; i < envsData.length; i++) {
     var parts = envsData[i].split('#');
+    if (parts[0].startsWith('-')) {
+        $.log(parts[2] + "跳过同步");
+        continue;
+    }
     var obj = { 'BoxJsKey': parts[0], 'qlEnv': parts[1], 'qlRemark': parts[2] };
     syncEnvs.push(obj);
 }
