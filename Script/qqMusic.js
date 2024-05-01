@@ -56,7 +56,7 @@ let qqMusic = "";
 let qqmusic_key = "";
 let qqMusicUin = 123456;
 
-let currentVersion = "v1.0.0";
+let currentVersion = "v1.0.1";
 let latestVersion = "";
 
 let originalInfo = $.info;
