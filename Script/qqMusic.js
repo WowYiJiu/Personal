@@ -726,7 +726,7 @@ function getCookie() {
             const cookie = $request.headers["Cookie"] || $request.headers["cookie"];
             if (qqMusicCookie) {
                 if (qqMusicCookie.indexOf(extractUIN(cookie)) > -1) {
-                    $.msg($.name, `QQ号${extractUIN(cookie)}已存在，本次不再获取`, "不用请自行关闭重写!");
+                    $.msg($.name, `QQ号${parseInt(extractUIN(cookie))}已存在，本次不再获取`, "不用请自行关闭重写!");
                     return;
                 } else if (qqMusicCookie.indexOf(cookie.uin) == -1) {
                     qqMusicCookie += "\n" + cookie;
@@ -736,7 +736,7 @@ function getCookie() {
             }
             $.setdata(qqMusicCookie, "qqMusicCookie");
             $.log(`qqMusicCookie: ${cookie}`);
-            $.msg($.name, `🎉 QQ号${extractUIN(cookie)}Cookie获取成功`, "不用请自行关闭重写!");
+            $.msg($.name, `🎉 QQ号${parseInt(extractUIN(cookie))}Cookie获取成功`, "不用请自行关闭重写!");
         } catch (err) {
             $.logErr(`获取QQ音乐Cookie异常：${err}`);
             $.msg($.name, "❌获取Cookie异常");
@@ -873,7 +873,7 @@ function extractFields(input) {
 }
 
 function extractUIN(input) {
-    let match = input.match(/uin=o?(\d+)/i);
+    let match = input.match(/uin=o(\d+)/i);
     if (match && match[1]) {
         return match[1];
     }
