@@ -744,25 +744,26 @@ function getCookie() {
     }
 }
 
-function getNotice() {
+async function getNotice() {
 	return new Promise((resolve) => {
 		let opt = {
-			url: "https://raw.githubusercontent.com/WowYiJiu/Personal/main/WowYiJiu.json",
+			url: "https://github.wowyijiu.today/https://raw.githubusercontent.com/WowYiJiu/Personal/main/WowYiJiu.json",
 			timeout: 10000,
 		};
 		$.get(opt, async (error, resp, data) => {
-			if (error) {
-				$.log("👾 获取免责声明失败");
-			} else {
-				if (typeof(data) === "string") {
-					try {
+			try {
+				if (error) {
+					$.error("👾 获取免责声明失败");
+					resolve();
+				} else {
+					if (data) {
 						var obj = JSON.parse(data);
 						$.log(obj.notice);
 						resolve();
-					} catch (e) {
-						$.log("👾 获取免责声明失败");
 					}
 				}
+			} catch (e) {
+				$.error(e);
 				resolve();
 			}
 		});
@@ -772,7 +773,7 @@ function getNotice() {
 async function getVersion() {
     const timeoutMs = 10000;
     const opt = { 
-        url: "https://raw.githubusercontent.com/WowYiJiu/Personal/main/Script/qqMusic.js",
+        url: "https://github.wowyijiu.today/https://raw.githubusercontent.com/WowYiJiu/Personal/main/Script/qqMusic.js",
         timeout: timeoutMs 
     };
     const data = await new Promise((resolve) => {
