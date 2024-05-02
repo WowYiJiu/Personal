@@ -139,7 +139,7 @@ if ((isGetCookie = typeof $request !== `undefined`)) {
 				cookie = cookieArr[i]
 				qqMusic = extractFields(cookie);
 				qqmusic_key = qqMusic.match(/qm_keyst=([^;]*);/) ? qqMusic.match(/qm_keyst=([^;]*);/)[1] : null;
-				qqMusicUin = extractUIN(qqMusic);
+				qqMusicUin = parseInt(extractUIN(qqMusic));
 				$.index = i + 1;
 			}
 			$.log(`▶️▶️▶️ 开始执行第${$.index}个账号 ▶️▶️▶️\n`);
