@@ -4,7 +4,7 @@
 *@env        qqMusicLogLevel, qqMusicCookie
 *@author     WowYiJiu
 *@updated    2024-5-2
-*@version    v1.0.1
+*@version    v1.0.2
 *@link       https://raw.githubusercontent.com/WowYiJiu/Personal/main/Script/qqMusic.js
 ❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖
 详细功能：
@@ -873,11 +873,11 @@ function extractFields(input) {
 }
 
 function extractUIN(input) {
-    let match = input.match(/uin=o(\d+)/i);
-    if (match && match[1]) {
-        return match[1];
-    }
-    return 'uin缺失或正则有误';
+	let match = input.match(/; ?uin=o?(\d+);/i);
+	if (match && match[1]) {
+		return match[1];
+	}
+	return "uin缺失或正则有误";
 }
 
 function get_g_tk(t) {
