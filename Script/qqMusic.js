@@ -56,7 +56,7 @@ let qqMusic = "";
 let qqmusic_key = "";
 let qqMusicUin = 123456;
 
-let currentVersion = "v1.0.1";
+let currentVersion = "v1.0.2";
 let latestVersion = "";
 
 let originalInfo = $.info;
@@ -873,7 +873,7 @@ function extractFields(input) {
 }
 
 function extractUIN(input) {
-	let match = input.match(/; ?uin=o?(\d+);/i);
+	let match = input.match(/(?:; |^)uin=o?(\d+)/i);
 	if (match && match[1]) {
 		return match[1];
 	}
