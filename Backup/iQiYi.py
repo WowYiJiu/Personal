@@ -3,23 +3,24 @@
 # -------------------------------
 # @Author : github@limoruirui https://github.com/limoruirui
 # @Modifier : github@WowYiJiu https://github.com/WowYiJiu
-# @Update : 2024/6/4
+# @Update : 2024/6/9
 # @env : iqyck
 # -------------------------------
 """
 cookie为爱奇艺整个cookie
 export iqyck = "cookie"
 """
-from time import sleep, time
-from random import randint, choice
-from json import dumps
+from datetime import datetime
 from hashlib import md5 as md5Encode
+from json import dumps
+from time import sleep, time
+from os import environ, system
+from random import randint, choice
+from re import findall
 from string import digits, ascii_lowercase, ascii_uppercase
 from sys import exit, stdout
-from os import environ, system
-from re import findall
 from uuid import uuid4
-from datetime import datetime
+import json
 
 try:
     from requests import Session, get, post
@@ -64,6 +65,7 @@ for item in check_items:
         print(f"{item}存在但无法被正确解析")
 
 class IQiYi:
+    name = "爱奇艺"
     def __init__(self):
         self.P00001 = P00001
         self.userId = P00003
@@ -166,24 +168,37 @@ class IQiYi:
         print(content)
         stdout.flush()
 
+    def login(self):
+        url = f'https://cards.iqiyi.com/views_category/3.0/vip_home?dev_os=17.4.1&dev_ua=iPhone14,2&app_v=15.5.6&psp_cki={self.P00001}&app_k=8e48946f144759d86a50075555fd5862&page_st=suggest&qyid={self.qyid}&platform_id=12&layout_v=156.38&net_sts=1&secure_p=iPhone&secure_v=1'
+        headers = {
+            't': "610247244",
+            'sign': "222a6a741a11e36d9882df62aabcad9c"
+        }
+        data = json.loads(get(url, headers=headers).text)
+        if data.get('code') == 0:
+            self.print_now("登录成功")
+
     def sign(self):
+        # lequ-qfe.iqiyi.com
         time_stamp = self.timestamp()
-        data = f'agentType=1|agentversion=1.0|appKey=basic_pcw|authCookie={self.P00001}|qyid={self.qyid}|task_code=natural_month_sign|timestamp={time_stamp}|typeCode=point|userId={self.userId}|UKobMjDMsDoScuWOfp6F'
-        url = f'https://community.iqiyi.com/openApi/task/execute?agentType=1&agentversion=1.0&appKey=basic_pcw&authCookie={self.P00001}&qyid={self.qyid}&task_code=natural_month_sign&timestamp={time_stamp}&typeCode=point&userId={self.userId}&sign={self.md5(data)}'
+        data = f'agenttype=20|agentversion=15.5.5|appKey=lequ_rn|appver=15.5.5|authCookie={self.P00001}|qyid={self.qyid}|srcplatform=20|task_code=natural_month_sign|timestamp={time_stamp}|userId={self.userId}|cRcFakm9KSPSjFEufg3W'
+        url = f'https://community.iqiyi.com/openApi/task/execute?task_code=natural_month_sign&timestamp={time_stamp}&appKey=lequ_rn&userId={self.userId}&authCookie={self.P00001}&agenttype=20&agentversion=15.5.5&srcplatform=20&appver=15.5.5&qyid={self.qyid}&sign={self.md5(data)}'
         headers = {
             'Content-Type': 'application/json'
         }
         body = {
             "natural_month_sign": {
-                "agentType": 1,
-                "agentversion": 1,
+                "verticalCode": "iQIYI",
+                "taskCode": "iQIYI_mofhr",
                 "authCookie": self.P00001,
                 "qyid": self.qyid,
-                "taskCode": "iQIYI_mofhr",
-                "verticalCode": "iQIYI"
+                "agentType": 20,
+                "agentVersion": "15.5.5",
+                "dfp": self.dfp,
+                "signFrom": 1
             }
         }
-        data = post(url, headers=headers, json=body).json()
+        data = post(url, headers=headers, data=dumps(body)).json()
         signDays = None
         if 'code' in data and data['code'] == 'A0003':
             self.print_now("iqyck已失效，请重新获取")
@@ -191,7 +206,7 @@ class IQiYi:
         elif 'code' in data and data['code'] == 'A00000':
             data_data = data.get('data', {})
             msg = data_data.get('msg')
-            
+
             if data_data.get('data'): 
                 signDays = data_data.get('data', {}).get('signDays')
             if msg and '已经到达上限' in msg:
@@ -200,6 +215,13 @@ class IQiYi:
             elif signDays is not None:
                 self.print_now(f"签到成功, 本月累计签到{signDays}天")
                 self.task_info += f"签到成功, 本月累计签到{signDays}天\n"
+
+            if data_data['code'] != 'A0000' and data_data['code'] != 'A0014' and not (data_data.get('success')):
+                self.print_now(f"签到失败：{msg}")
+                self.task_info += f"签到失败：{msg}\n"
+        else:
+            self.print_now(f"签到失败：{data}")
+            self.task_info += f"签到失败：{data}\n"        
 
     def get_watch_time(self):
         url = "https://tc.vip.iqiyi.com/growthAgency/watch-film-duration"
@@ -223,6 +245,7 @@ class IQiYi:
             if i % 30 == 0:
                 self.print_now(f"现在已经刷到了{totalTime}秒, 数据同步有延迟, 仅供参考")
             if totalTime >= 7200:
+                sleep(60)
                 self.print_now(f"今日观影任务已完成")
                 self.task_info += f"今日观影任务已完成\n"
                 break
@@ -258,8 +281,10 @@ class IQiYi:
                 if item["status"] == 2 or item["status"] == 0:
                     # 领取奖励
                     url = f"https://tc.vip.iqiyi.com/taskCenter/task/getTaskRewards?P00001={self.P00001}&taskCode={item['taskCode']}&lang=zh_CN&platform={self.platform}"
-                    if self.req(url)['code'] == 'A00000':
-                        price = self.req(url)['dataNew'][0]["value"]
+                    data = self.req(url)
+                    if data['code'] == 'A00000':
+                        print(data)
+                        price = data['dataNew'][0]["value"]
                         self.print_now(f"{item['taskTitle']}任务已完成, 获得{int(price[1:])}点成长值")
                         self.task_info += f"{item['taskTitle']}任务已完成, 获得{int(price[1:])}点成长值\n"
                         sleep(5)
@@ -301,7 +326,7 @@ class IQiYi:
                 sleep(2)
                 self.lottery()
         else:
-            self.print_now(f"抽奖接口请求失败：{data}")
+            self.print_now(f"抽奖接口请求失败：{data}\n")
 
     def shake_lottery(self):
         url = f'https://act.vip.iqiyi.com/shake-api/lottery?P00001={self.P00001}&dfp={self.dfp}&qyid={self.qyid}&deviceID={self.qyid}&version=15.4.6&agentType=12&platform=bb35a104d95490f6&ptid=02030031010000000000&fv=afc0b50ed49e732d&source=afc0b50ed49e732d&_={self.timestamp()}&vipType=1&lotteryType=0&actCode=0k9GkUcjqqj4tne8&freeLotteryNum=3&extendParams={{"appIds":"iqiyi_pt_vip_iphone_video_autorenew_12m_348yuan_v2","supportSk2Identity":true,"testMode":"0","iosSystemVersion":"17.4.1","bundleId":"com.qiyi.iphone"}}'
@@ -319,7 +344,7 @@ class IQiYi:
                 self.print_now(f"每天摇一摇次数已用完, 明日再来吧")
                 self.task_info += f"每天摇一摇次数已用完, 明日再来吧\n"
         else:
-            self.print_now(f'每天摇一摇：{data.get("msg")}')
+            self.print_now(f'每天摇一摇：{data.get("msg")}\n')
 
     def giveTimes(self):
         times_code_list = ["browseWeb", "browseWeb", "bookingMovie"]
@@ -346,12 +371,12 @@ class IQiYi:
             gift_name = data["data"]["giftName"]
             if gift_name and "未中奖" not in gift_name:
                 self.gift_list.append(gift_name)
-            if self.gift_list:
-                    self.print_now(f"白金抽奖奖品：{'、'.join(self.gift_list)}")
-                    self.task_info += f"白金抽奖奖品：{'、'.join(self.gift_list)}\n"
-            else:
-                self.print_now(f"很遗憾，白金抽奖未中奖")
-                self.task_info += f"很遗憾，白金抽奖未中奖\n"
+        if self.gift_list:
+                self.print_now(f"白金抽奖奖品：{'、'.join(self.gift_list)}")
+                self.task_info += f"白金抽奖奖品：{'、'.join(self.gift_list)}\n"
+        elif times != 0:
+            self.print_now(f"很遗憾，白金抽奖未中奖")
+            self.task_info += f"很遗憾，白金抽奖未中奖\n"
             
     def get_userinfo(self):
         url = f"https://tc.vip.iqiyi.com/growthAgency/v2/growth-aggregation?messageId=b7d48dbba64c4fd0f9f257dc89de8e25&platform=97ae2982356f69d8&P00001={self.P00001}&responseNodes=duration,growth,upgrade,viewTime,growthAnnualCard&_={self.timestamp()}"
@@ -360,9 +385,10 @@ class IQiYi:
         if data.get("code") == 'A00000':
             self.user_info += f"用户昵称：{ data['data']['user']['nickname']}\nVIP等级：{growth_info['level']}\nVIP到期时间：{growth_info['deadline']}\n今日成长：{growth_info['todayGrowthValue']}\n当前成长：{growth_info['growthvalue']}\n升级还需：{growth_info['distance']}\n"
         else:
-            self.user_info = f"查询失败,未获取到用户信息"
+            self.user_info = f"查询失败,未获取到用户信息\n"
 
     def main(self):
+        self.login()
         self.sign()
         self.watchVideo()
         self.dailyTask()
