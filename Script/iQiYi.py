@@ -26,7 +26,7 @@ def load_send():
     if path.exists(cur_path + "/notify.py"):
         try:
             from notify import send
-            return true
+            return send
         except ImportError:
             return False
     else:
@@ -368,7 +368,7 @@ class IQiYi:
         self.get_userinfo()
         self.msg = self.user_info + self.task_info
         send = load_send()
-        if send:
+        if callable(send):
             send("爱奇艺", self.msg)
         else:
             print('\n加载通知服务失败')
