@@ -3,7 +3,7 @@
 # -------------------------------
 # @Author : github@limoruirui https://github.com/limoruirui
 # @Modifier : github@WowYiJiu https://github.com/WowYiJiu
-# @Update : 2024/6/9
+# @Update : 2024/6/12
 # @env : iqyck
 # -------------------------------
 """
@@ -14,14 +14,24 @@ from datetime import datetime
 from hashlib import md5 as md5Encode
 from json import dumps
 from time import sleep, time
-from os import environ, system
+from os import environ, system, path
 from random import randint, choice
 from re import findall
 from string import digits, ascii_lowercase, ascii_uppercase
 from sys import exit, stdout
 from uuid import uuid4
-import json
 
+def load_send():
+    cur_path = path.abspath(path.dirname(__file__))
+    if path.exists(cur_path + "/notify.py"):
+        try:
+            from notify import send
+            return true
+        except ImportError:
+            return False
+    else:
+        return False
+    
 try:
     from requests import Session, get, post
     from fake_useragent import UserAgent
@@ -34,10 +44,6 @@ except:
     exit(0)
 iqyck = environ.get("iqyck") if environ.get("iqyck") else ""
 P00001 = P00003 = dfp = qyid = ""
-pushplus_token = environ.get("PUSH_PLUS_TOKEN") if environ.get("PUSH_PLUS_TOKEN") else ""
-tgbot_token = environ.get("TG_BOT_TOKEN") if environ.get("TG_BOT_TOKEN") else ""
-tg_userId = environ.get("TG_USER_ID") if environ.get("TG_USER_ID") else ""
-tg_push_api = environ.get("TG_API_HOST") if environ.get("TG_API_HOST") else ""
 if iqyck == "":
     print("未找到iqy_ck，请填写iqy_ck变量")
     exit(0)
@@ -59,6 +65,7 @@ for item in check_items:
                 qyid = value
             elif item == "__dfp":
                 dfp = value
+                dfp = dfp.split("@")[0]
         else:
             print(f"{item}未在iqyck中找到")
     except IndexError:
@@ -84,7 +91,6 @@ class IQiYi:
             'sec-fetch-mode': "navigate"
         }
         self.msg = ""
-        self.title = "爱奇艺\n\n"
         self.user_info = ""
         self.task_info = ""
         self.msg = ""
@@ -137,46 +143,9 @@ class IQiYi:
                 str += choice(digits + ascii_lowercase)
         return str
 
-    def pushplus(self, title, content):
-        url = "http://www.pushplus.plus/send"
-        headers = {
-            "Content-Type": "application/json"
-        }
-        data = {
-            "token": pushplus_token,
-            "title": title,
-            "content": content
-        }
-        try:
-            post(url, headers=headers, data=dumps(data))
-        except:
-            self.print_now('推送失败')
-
-    def tgpush(self, content):
-        url = f"https://api.telegram.org/bot{tgbot_token}/sendMessage"
-        if tg_push_api != "":
-            url = f"{tg_push_api}/bot{tgbot_token}/sendMessage"
-        headers = {'Content-Type': 'application/x-www-form-urlencoded'}
-        data = {'chat_id': str(tg_userId), 'text': content, 'disable_web_page_preview': 'true'}
-        try:
-            post(url, headers=headers, data=data, timeout=10)
-            self.print_now('推送成功')
-        except:
-            self.print_now('推送失败')
-
     def print_now(self, content):
         print(content)
         stdout.flush()
-
-    def login(self):
-        url = f'https://cards.iqiyi.com/views_category/3.0/vip_home?dev_os=17.4.1&dev_ua=iPhone14,2&app_v=15.5.6&psp_cki={self.P00001}&app_k=8e48946f144759d86a50075555fd5862&page_st=suggest&qyid={self.qyid}&platform_id=12&layout_v=156.38&net_sts=1&secure_p=iPhone&secure_v=1'
-        headers = {
-            't': "610247244",
-            'sign': "222a6a741a11e36d9882df62aabcad9c"
-        }
-        data = json.loads(get(url, headers=headers).text)
-        if data.get('code') == 0:
-            self.print_now("登录成功")
 
     def sign(self):
         # lequ-qfe.iqiyi.com
@@ -189,12 +158,12 @@ class IQiYi:
         body = {
             "natural_month_sign": {
                 "verticalCode": "iQIYI",
-                "taskCode": "iQIYI_mofhr",
+                "agentVersion": "15.4.6",
                 "authCookie": self.P00001,
+                "taskCode": "iQIYI_mofhr",
+                "dfp": self.dfp,
                 "qyid": self.qyid,
                 "agentType": 20,
-                "agentVersion": "15.5.5",
-                "dfp": self.dfp,
                 "signFrom": 1
             }
         }
@@ -233,7 +202,7 @@ class IQiYi:
         totalTime = self.get_watch_time()
         if totalTime >= 7200:
             self.print_now(f"您的账号今日观影时长大于2小时，不执行刷观影时长")
-            self.task_info += f"您的账号今日观影时长大于2小时，不执行刷观影时长\n"
+            self.task_info += f"今日观影任务已完成\n"
             return
         self.print_now("正在刷观影时长，为减少风控，本过程运行大概1个小时")
         for i in range(1, 121):
@@ -283,7 +252,6 @@ class IQiYi:
                     url = f"https://tc.vip.iqiyi.com/taskCenter/task/getTaskRewards?P00001={self.P00001}&taskCode={item['taskCode']}&lang=zh_CN&platform={self.platform}"
                     data = self.req(url)
                     if data['code'] == 'A00000':
-                        print(data)
                         price = data['dataNew'][0]["value"]
                         self.print_now(f"{item['taskTitle']}任务已完成, 获得{int(price[1:])}点成长值")
                         self.task_info += f"{item['taskTitle']}任务已完成, 获得{int(price[1:])}点成长值\n"
@@ -364,7 +332,7 @@ class IQiYi:
         times = self.queryTimes()
         if times == 0:
             self.print_now(f"白金抽奖次数已用完, 明日再来吧")
-            self.task_info += f"白金抽奖次数已用完, 明日再来吧\n"
+            self.task_info += f"白金抽奖次数已用完, 明日再来吧"
         for _ in range(times):
             url = f"https://pcell.iqiyi.com/lotto/lottery?dfp&qyid={self.qyid}&version&deviceId={self.qyid}&_cctimer={self.timestamp()}&actCode=bcf9d354bc9f677c&P00001={self.P00001}"
             data = self.req(url)
@@ -373,10 +341,10 @@ class IQiYi:
                 self.gift_list.append(gift_name)
         if self.gift_list:
                 self.print_now(f"白金抽奖奖品：{'、'.join(self.gift_list)}")
-                self.task_info += f"白金抽奖奖品：{'、'.join(self.gift_list)}\n"
+                self.task_info += f"白金抽奖奖品：{'、'.join(self.gift_list)}"
         elif times != 0:
             self.print_now(f"很遗憾，白金抽奖未中奖")
-            self.task_info += f"很遗憾，白金抽奖未中奖\n"
+            self.task_info += f"很遗憾，白金抽奖未中奖"
             
     def get_userinfo(self):
         url = f"https://tc.vip.iqiyi.com/growthAgency/v2/growth-aggregation?messageId=b7d48dbba64c4fd0f9f257dc89de8e25&platform=97ae2982356f69d8&P00001={self.P00001}&responseNodes=duration,growth,upgrade,viewTime,growthAnnualCard&_={self.timestamp()}"
@@ -388,7 +356,6 @@ class IQiYi:
             self.user_info = f"查询失败,未获取到用户信息\n"
 
     def main(self):
-        self.login()
         self.sign()
         self.watchVideo()
         self.dailyTask()
@@ -399,12 +366,12 @@ class IQiYi:
         if int(self.sleep_await) == 1:
             sleep(60)
         self.get_userinfo()
-        self.author = f"\n本通知 By：WowYiJiu\n通知时间：{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
-        self.msg = self.title + self.user_info + self.task_info + self.author
-        if pushplus_token != "":
-            self.pushplus("爱奇艺每日任务签到", self.msg)
-        if tgbot_token != "" and tg_userId != "":
-            self.tgpush(self.msg)
+        self.msg = self.user_info + self.task_info
+        send = load_send()
+        if send:
+            send("爱奇艺", self.msg)
+        else:
+            print('\n加载通知服务失败')
 
 if __name__ == '__main__':
     iqiyi = IQiYi()
