@@ -78,14 +78,9 @@ $.info=function(message){originalInfo.call($,message);$.desc+=message+"\n"};$.wa
 if ((isGetCookie = typeof $request !== `undefined`)) {
 	getCookie();
 	$.done();
-} else if (!txspCookie){
-	if ($.isNode()) {
-		$.warn(`未填写txspCookie环境变量`);
-		return;
-	} else {
-		$.msg($.name, "您未获取腾讯视频Cookie", "点击此条跳转到腾讯视频获取Cookie", { 'open-url': 'tenvideo://', 'media-url': 'https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/videoqq.png' });
-		$.done();
-	}
+} else if (!$.isNode() && !txspCookie){
+	$.msg($.name, "您未获取腾讯视频Cookie", "点击此条跳转到腾讯视频获取Cookie", { 'open-url': 'tenvideo://', 'media-url': 'https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/videoqq.png' });
+	$.done();
 } else {
 	!(async () => {
 		$.log(`                               _  _ _         `);
@@ -98,6 +93,10 @@ if ((isGetCookie = typeof $request !== `undefined`)) {
 		await getVersion();
 		$.log(`\n当前版本：${currentVersion}  最新版本：${latestVersion}\n`);
 		$.version = `\n当前版本：${currentVersion}  最新版本：${latestVersion}\n`;
+		if(!txspCookie){
+			$.warn(`未填写txspCookie环境变量`);
+			return;
+		}
 		if ($.isNode()){
 			txspCookie = extractValues(txspCookie, txspCookieKeys);
 			txspRefreshCookie = extractValues(txspRefreshCookie, txspRefreshCookieKeys);
@@ -303,7 +302,7 @@ async function readTxspTaskList() {
 						let txspCheckInTask = taskList && taskList.find(task => task.task_maintitle === "VIP会员每日签到");
 						isTxspCheckIn = txspCheckInTask.task_status;
 					}  else {
-						$.warn(`获取腾讯视频任务列表失败，异常详细信息如下\n${obj}`);
+						$.warn(`获取腾讯视频任务列表失败，异常详细信息如下\n${data}`);
 					}
 					resolve();
 				}
@@ -337,7 +336,7 @@ async function txspCheckIn() {
 				} else if (code === -2002) {
 					$.info(`今天已签到, 明日再来吧`);
 				} else {
-					$.warn(`签到失败，异常详细信息如下\n${obj}`);
+					$.warn(`签到失败，异常详细信息如下\n${data}`);
 				}
 			resolve();
 		});
@@ -370,7 +369,7 @@ async function readTxSportsTaskList() {
 						let txSportsCheckInTasks = taskList && taskList.find(task => task.task_maintitle === "每日签到");
 						isTxSportsCheckIn = txSportsCheckInTasks.task_status;
 					}  else {
-						$.warn(`获取腾讯视频任务列表失败，异常详细信息如下\n${obj}`);
+						$.warn(`获取腾讯视频任务列表失败，异常详细信息如下\n${data}`);
 					}
 					resolve();
 				}
@@ -405,7 +404,7 @@ async function txSportsCheckIn() {
 				} else if (code === -2002) {
 					$.info(`今天已签到, 明日再来吧`);
 				} else {
-					$.warn(`签到失败，异常详细信息如下\n${obj}`);
+					$.warn(`签到失败，异常详细信息如下\n${data}`);
 			}
 			resolve();
 		});
@@ -437,7 +436,7 @@ async function getDayTicket() {
 				} else if (code === -2021) {
 					$.info(`每日球票已领取, 明日再来吧`);
 				} else {
-					$.warn(`领取每日球票失败，异常详细信息如下\n${obj}`);
+					$.warn(`领取每日球票失败，异常详细信息如下\n${data}`);
 				}
 			} catch (e) {
 				$.error(e);
@@ -473,7 +472,7 @@ async function getMonthTicket() {
 				} else if (code === -903) {
 					$.info(`每月球票已领取，下个月再来哦`);
 				} else {
-					$.warn(`领取每月球票失败，异常详细信息如下\n${obj}`);
+					$.warn(`领取每月球票失败，异常详细信息如下\n${data}`);
 				}
 			} catch (e) {
 				$.error(e);
@@ -509,7 +508,7 @@ async function lottery() {
 				} else if (code === -904) {
 					$.info(`今天已抽奖, 明日再来吧`);
 				} else {
-					$.warn(`抽奖失败，异常详细信息如下\n${obj}`);
+					$.warn(`抽奖失败，异常详细信息如下\n${data}`);
 				}
 			} catch (e) {
 				$.error(e);
