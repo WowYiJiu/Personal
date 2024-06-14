@@ -20,16 +20,29 @@
         },
         {
             "id": "txSports",
-            "name": "腾讯体育",
+            "name": "腾讯视频",
             "author": "@WowYiJiu",
-            "repo": "https://github.com/WowYiJiu/Personal/blob/main/Script/txSports.js",
-            "script": "https://raw.githubusercontent.com/WowYiJiu/Personal/main/Script/txSports.js",
-            "keys": ["txSports", "isLottery"],
+            "repo": "https://github.com/WowYiJiu/Personal/blob/main/Script/tenvideo.js",
+            "script": "https://raw.githubusercontent.com/WowYiJiu/Personal/main/Script/tenvideo.js",
+            "keys": ["txspCookie", "txspRefreshCookie", "txspRefreshBody", "dayOfGetMonthTicket", "isSkipTxspCheckIn", "isLottery"],
             "descs_html": [
-            "<h4 align=\"center\">获取Cookie以及脚本配置请查看<a href=\"https://raw.githubusercontent.com/WowYiJiu/Personal/main/Script/txSports.js\">脚本注释</a></h4>"
+            "<h4 align=\"center\">获取Cookie以及脚本配置请查看<a href=\"https://raw.githubusercontent.com/WowYiJiu/Personal/main/Script/tenvideo.js\">脚本注释</a></h4>"
             ],
-            "icons": ["https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/Alpha/txSports.png", "https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/Color/txSports.png"],
+            "icons": ["https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/Alpha/tenvideo.png", "https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/Color/tenvideo.png"],
             "settings": [
+                {
+                    "id": "dayOfGetMonthTicket",
+                    "name": "每月几号领取每月球票",
+                    "val": "1",
+                    "type": "text"
+                },
+                {
+                    "id": "isSkipTxspCheckIn",
+                    "name": "腾讯视频签到",
+                    "val": false,
+                    "type": "boolean",
+                    "desc": "腾讯视频签到开关"
+                },
                 {
                     "id": "isLottery",
                     "name": "抽抽乐",
