@@ -42,7 +42,7 @@ https://pbaccess.video.qq.com/trpc.video_account_login.web_login_trpc.WebLoginTr
 https://raw.githubusercontent.com/WowYiJiu/Personal/main/rewrite/get_tenvideo_cookie.conf, tag=腾讯视频, update-interval=172800, opt-parser=false, enabled=false
 
 [task_local]
-5 7 * * * https://raw.githubusercontent.com/WowYiJiu/Personal/main/Script/tenvideo.js, tag=腾讯视频, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/Color/tenvideo.png, enabled=true
+5 7 * * * https://raw.githubusercontent.com/WowYiJiu/Personal/main/Script/tenvideo.js, tag=腾讯视频, img-url=https://github.com/WowYiJiu/Personal/blob/main/icon/Color/tenvideo.png?raw=true, enabled=true
 */
 const $ = new Env("腾讯视频");
 
@@ -50,8 +50,8 @@ let txspCookie = ($.isNode() ? process.env.txspCookie : $.getdata('txspCookie'))
 let txspRefreshCookie = ($.isNode() ? process.env.txspRefreshCookie : $.getdata('txspRefreshCookie')) || "";
 let txspRefreshBody = ($.isNode() ? process.env.txspRefreshBody  : $.getdata('txspRefreshBody')) || "";
 let dayOfGetMonthTicket = ($.isNode() ? process.env.dayOfGetMonthTicket : $.getdata('dayOfGetMonthTicket')) || 1;
-let isSkipTxspCheckIn = $.isNode() ? process.env.isSkipTxspCheckIn : (($.getdata('isSkipTxspCheckIn') && $.getdata('isSkipTxspCheckIn') !== '') ? JSON.parse($.getdata('isSkipTxspCheckIn')) : false);
-let isLottery = $.isNode() ? process.env.isLottery : (($.getdata('isLottery') !== '') ? JSON.parse($.getdata('isLottery')) : false);
+let isSkipTxspCheckIn = $.isNode() ? process.env.isSkipTxspCheckIn : (($.getdata('isSkipTxspCheckIn') !== undefined && $.getdata('isSkipTxspCheckIn') !== '') ? JSON.parse($.getdata('isSkipTxspCheckIn')) : false);
+let isLottery = $.isNode() ? process.env.isLottery : (($.getdata('isLottery') !== undefined && $.getdata('isLottery') !== '') ? JSON.parse($.getdata('isLottery')) : false);
 
 const Notify = 1; //0为关闭通知,1为打开通知,默认为1
 const notify = $.isNode() ? require("./sendNotify") : "";
