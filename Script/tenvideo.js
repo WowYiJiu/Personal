@@ -50,8 +50,8 @@ let txspCookie = ($.isNode() ? process.env.txspCookie : $.getdata('txspCookie'))
 let txspRefreshCookie = ($.isNode() ? process.env.txspRefreshCookie : $.getdata('txspRefreshCookie')) || "";
 let txspRefreshBody = ($.isNode() ? process.env.txspRefreshBody  : $.getdata('txspRefreshBody')) || "";
 let dayOfGetMonthTicket = ($.isNode() ? process.env.dayOfGetMonthTicket : $.getdata('dayOfGetMonthTicket')) || 1;
-let isSkipTxspCheckIn = ($.isNode() ? process.env.isSkipTxspCheckIn : $.getdata('isSkipTxspCheckIn')) || false;
-let isLottery = ($.isNode() ? process.env.isLottery : $.getdata('isLottery')) || false;
+let isSkipTxspCheckIn = $.isNode() ? process.env.isSkipTxspCheckIn : (($.getdata('isSkipTxspCheckIn') && $.getdata('isSkipTxspCheckIn') !== '') ? JSON.parse($.getdata('isSkipTxspCheckIn')) : false);
+let isLottery = $.isNode() ? process.env.isLottery : (($.getdata('isLottery') !== '') ? JSON.parse($.getdata('isLottery')) : false);
 
 const Notify = 1; //0为关闭通知,1为打开通知,默认为1
 const notify = $.isNode() ? require("./sendNotify") : "";
@@ -607,7 +607,7 @@ async function getNotice() {
 async function getVersion() {
     const timeoutMs = 10000;
     const opt = { 
-        url: "https://github.wowyijiu.today/https://raw.githubusercontent.com/WowYiJiu/Personal/main/Script/txSports.js",
+        url: "https://github.wowyijiu.today/https://raw.githubusercontent.com/WowYiJiu/Personal/main/Script/tenvideo.js",
         timeout: timeoutMs 
     };
     const data = await new Promise((resolve) => {
