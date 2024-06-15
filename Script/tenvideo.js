@@ -56,7 +56,7 @@ let isLottery = $.isNode() ? process.env.isLottery : (($.getdata('isLottery') !=
 const Notify = 1; //0为关闭通知,1为打开通知,默认为1
 const notify = $.isNode() ? require("./sendNotify") : "";
 
-let currentVersion = "v1.0.1", latestVersion = "";
+let currentVersion = "v1.0.2", latestVersion = "";
 let nickname = "";
 let isTxspVip = false, isTxspSvip = false, isTxSportsVip = false, isTxSportsSvip = false;
 let endTime = "", svipEndTime = "", txSportsEndTime = "", txSportsSvipEndTime = "";
