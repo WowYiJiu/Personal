@@ -41,7 +41,7 @@
                     "name": "腾讯视频签到",
                     "val": false,
                     "type": "boolean",
-                    "desc": "腾讯视频签到开关"
+                    "desc": "是否跳过腾讯视频签到"
                 },
                 {
                     "id": "isLottery",

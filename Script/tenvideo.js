@@ -1,10 +1,10 @@
 /**
 *@file       腾讯视频
-*@desp       本脚本仅适用于腾讯视频及体育会员每日签到，仅测试Quantumult X、青龙
+*@desp       本脚本仅适用于腾讯视频及体育会员每日签到，仅测试Quantumult X、青龙（只支持单账号）
 *@env        txspCookie、txspRefreshCookie、txspRefreshBody、dayOfGetMonthTicket、isSkipTxspCheckIn、isLottery
 *@author     WowYiJiu
 *@updated    2024-6-14
-*@version    v1.0.1
+*@version    v1.0.2
 *@link       https://raw.githubusercontent.com/WowYiJiu/Personal/main/Script/tenvideo.js
 
 🌟 环境变量说明
@@ -13,7 +13,7 @@ txspRefreshCookie、txspRefreshBody：腾讯视频网页NewRefresh接口中的�
 dayOfGetMonthTicket：每月几号领取每月球票，默认为每月1号
 isSkipTxspCheckIn：值域[true, false] 默认为false表示正常进行腾讯视频会员签到，用于特殊情况下（账号需要获取短信验证码或者需要过滑块验证码）时开启
 isLottery: 值域[true, false] 默认为false表示不抽奖，抽抽乐于2024年2月29日10点下线，建议不开启，反正也抽不到
-
+❗ 本脚本只能给腾讯视频正常账号签到，如有验证请设置isSkipTxspCheckIn为true，直到手动签到无验证为止
 ❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖
 
 详细功能：
@@ -65,9 +65,6 @@ let score = "", txSportsScore = "";
 let month_received_score = "", month_limit = "";
 let isTxspCheckIn = "", isTxSportsCheckIn = "";
 
-let txspCookieKeys = ['app_ver', 'main_login', 'video_platform', 'vqq_access_token', 'vqq_appid', 'vqq_openid', 'vqq_vuserid', 'vqq_vusession'];
-let txspRefreshCookieKeys = ['main_login', 'vqq_access_token', 'vqq_appid', 'vqq_openid', 'vqq_refresh_token', 'vqq_vuserid', 'vqq_vusession'];
-
 let originalInfo = $.info;
 let originalWarn = $.warn;
 let originalError = $.error;
@@ -96,10 +93,6 @@ if ((isGetCookie = typeof $request !== `undefined`)) {
 		if(!txspCookie){
 			$.warn(`未填写txspCookie环境变量`);
 			return;
-		}
-		if ($.isNode()){
-			txspCookie = extractValues(txspCookie, txspCookieKeys);
-			txspRefreshCookie = extractValues(txspRefreshCookie, txspRefreshCookieKeys);
 		}
 		$.info("---- 开始 刷新vqq_vusession ----");
 		await refresh_vqq_vusession();
@@ -523,7 +516,6 @@ function getCookie() {
 	if($request && $request.method !=`OPTIONS` && $request.url.match(/\/rpc\/trpc\.new_task_system\.task_system\.TaskSystem\/ReadTaskList/)){
 		let txsp = $request.headers["Cookie"] || $request.headers["cookie"];
 		if (txsp) {
-			txsp = extractValues(txsp, txspCookieKeys);
 			if (typeof txspCookie === "undefined" || (txspCookie && txspCookie.length === 0)) {
 				$.setdata(txsp, "txspCookie");
 				$.log(`Cookie: ${txsp}`);
@@ -542,8 +534,6 @@ function getCookie() {
 	if($request && $request.method !=`OPTIONS` && $request.url.match(/\/trpc\.videosearch\.hot_rank\.HotRankServantHttp\/HotRankHttp/)){
 		let refreshCookie = $request.headers["Cookie"] || $request.headers["cookie"];
 		if (refreshCookie) {
-			
-			refreshCookie = extractValues(refreshCookie, txspRefreshCookieKeys);
 			if (typeof txspRefreshCookie === "undefined" || (txspRefreshCookie && txspRefreshCookie.length === 0)) {
 				$.setdata(refreshCookie, "txspRefreshCookie");
 				$.log(`Cookie: ${refreshCookie}`);
@@ -678,7 +668,7 @@ function safeGet(data) {
 		}
 	} catch (e) {
 		$.error(e);
-		$.error(`腾讯体育访问数据为空，请检查Cookie是否有效`);
+		$.error(`腾讯视频访问数据为空，请检查Cookie是否有效`);
 		return false;
 	}
 }
