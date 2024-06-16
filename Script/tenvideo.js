@@ -4,7 +4,7 @@
 *@env        txspCookie、txspRefreshCookie、txspRefreshBody、dayOfGetMonthTicket、isSkipTxspCheckIn、isLottery
 *@author     WowYiJiu
 *@updated    2024-6-14
-*@version    v1.0.2
+*@version    v1.0.3
 *@link       https://raw.githubusercontent.com/WowYiJiu/Personal/main/Script/tenvideo.js
 
 🌟 环境变量说明
@@ -56,7 +56,7 @@ let isLottery = $.isNode() ? process.env.isLottery : (($.getdata('isLottery') !=
 const Notify = 1; //0为关闭通知,1为打开通知,默认为1
 const notify = $.isNode() ? require("./sendNotify") : "";
 
-let currentVersion = "v1.0.2", latestVersion = "";
+let currentVersion = "v1.0.3", latestVersion = "";
 let nickname = "";
 let isTxspVip = false, isTxspSvip = false, isTxSportsVip = false, isTxSportsSvip = false;
 let endTime = "", svipEndTime = "", txSportsEndTime = "", txSportsSvipEndTime = "";
@@ -69,7 +69,7 @@ let originalInfo = $.info;
 let originalWarn = $.warn;
 let originalError = $.error;
 let message = "";
-$.desc = "";
+$.desc = "", $.taskInfo = "";
 $.info=function(message){originalInfo.call($,message);$.desc+=message+"\n"};$.warn=function(message){originalWarn.call($,message);$.desc+=message+"\n"};$.error=function(message){originalError.call($,message);$.desc+=message+"\n"};
 
 if ((isGetCookie = typeof $request !== `undefined`)) {
@@ -94,8 +94,8 @@ if ((isGetCookie = typeof $request !== `undefined`)) {
 			$.warn(`未填写txspCookie环境变量`);
 			return;
 		}
-		$.info("---- 开始 刷新vqq_vusession ----");
-		await refresh_vqq_vusession();
+		$.info("---- 开始 刷新vusession ----");
+		await refresh_vusession();
 		$.info(`--------- 结束 ---------\n`);
 		$.info(`用户昵称：${nickname}`);
 		await getVipInfo();
@@ -182,13 +182,13 @@ if ((isGetCookie = typeof $request !== `undefined`)) {
 				$.info(`--------- 结束 ---------`);
 			}
 		}
-		await SendMsg(message);
+		await SendMsg();
 	})()
 		.catch((e) => $.error(e))
 		.finally(() => $.done());
 }
 
-async function refresh_vqq_vusession() {
+async function refresh_vusession() {
 	return new Promise((resolve) => {
 			let opt = {
 				url: `https://pbaccess.video.qq.com/trpc.video_account_login.web_login_trpc.WebLoginTrpc/NewRefresh`,
@@ -205,11 +205,15 @@ async function refresh_vqq_vusession() {
 					var obj = JSON.parse(data);
 					if (obj.data.errcode === 0) {
 						let vqq_vusession = obj.data.vusession;
-						nickname = obj.data.nick;
-						txspCookie = txspCookie.replace(/(vqq_vusession=)[^;]*/, `$1${vqq_vusession}`);
-						$.info("刷新vqq_vusession成功")
+						nickname = decodeURIComponent(obj.data.nick);
+						if (txspCookie.match(/main_login=([^;]*)/)[1] === "qq"){
+							txspCookie = txspCookie.replace(/(vqq_vusession=)[^;]*/, `$1${vqq_vusession}`);
+						} else if(txspCookie.match(/main_login=([^;]*)/)[1] === "wx"){
+							txspCookie = txspCookie.replace(/(vusession=)[^;]*/, `$1${vusession}`);
+						}
+						$.info("刷新vusession成功")
 					} else {
-						$.warn("刷新vqq_vusession失败");
+						$.warn("刷新vusession失败");
 					}
 					resolve();
 				}
@@ -326,10 +330,13 @@ async function txspCheckIn() {
 				var code = obj.ret;
 				if (code === 0 && obj.check_in_score != undefined) {
 					$.info(`签到成功：获得${obj.check_in_score}V力值`);
+					$.taskInfo = `签到成功：获得${obj.check_in_score}V力值\n`;
 				} else if (code === -2002) {
 					$.info(`今天已签到, 明日再来吧`);
+					$.taskInfo = `今天已签到, 明日再来吧\n`;
 				} else {
 					$.warn(`签到失败，异常详细信息如下\n${data}`);
+					$.taskInfo = `签到失败, 异常详细信息请查看日志\n`;
 				}
 			resolve();
 		});
@@ -394,10 +401,13 @@ async function txSportsCheckIn() {
 				var code = obj.ret;
 				if (code === 0 && obj.check_in_score != undefined) {
 					$.info(`签到成功：获得${obj.check_in_score}热爱值`);
+					$.taskInfo += `签到成功：获得${obj.check_in_score}热爱值\n`;
 				} else if (code === -2002) {
 					$.info(`今天已签到, 明日再来吧`);
+					$.taskInfo += `今天已签到, 明日再来吧\n`;
 				} else {
 					$.warn(`签到失败，异常详细信息如下\n${data}`);
+					$.taskInfo += `签到失败, 异常详细信息请查看日志\n`;
 			}
 			resolve();
 		});
@@ -426,10 +436,13 @@ async function getDayTicket() {
 				var code = obj.ret;
 				if (code === 0) {
 					$.info(`领取每日球票成功`);
+					$.taskInfo += `领取每日球票成功\n`;
 				} else if (code === -2021) {
 					$.info(`每日球票已领取, 明日再来吧`);
+					$.taskInfo += `每日球票已领取, 明日再来吧\n`;
 				} else {
 					$.warn(`领取每日球票失败，异常详细信息如下\n${data}`);
+					$.taskInfo += `领取每日球票失败，异常详细信息请查看日志\n`;
 				}
 			} catch (e) {
 				$.error(e);
@@ -462,10 +475,13 @@ async function getMonthTicket() {
 				var code = obj.ret;
 				if (code === 0) {
 					$.info(`领取每月球票成功`);
+					$.taskInfo += `领取每月球票成功\n`;
 				} else if (code === -903) {
 					$.info(`每月球票已领取，下个月再来哦`);
+					$.taskInfo += `每月球票已领取，下个月再来哦\n`;
 				} else {
 					$.warn(`领取每月球票失败，异常详细信息如下\n${data}`);
+					$.taskInfo += `领取每月球票失败，异常详细信息请查看日志\n`;
 				}
 			} catch (e) {
 				$.error(e);
@@ -623,10 +639,10 @@ async function SendMsg() {
 		if ($.isNode()) {
 			await notify.sendNotify($.name, `${$.version}\n\n${$.desc}`);
 		} else {
-			$.msg($.name, "", `${$.version}\n${$.desc}`);
+			$.msg($.name, "", `${$.version}\n${$.taskInfo}`);
 		}
 	} else {
-		$.msg($.name, "", `${$.version}\n${$.desc}`);
+		$.msg($.name, "", `${$.version}\n${$.taskInfo}`);
 	}
 }
 
