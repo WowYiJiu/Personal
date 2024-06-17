@@ -12,9 +12,6 @@
          "config": "10 6 * * * https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/script/manmanbuy/manmanbuy_checkin.js, tag=慢慢买, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/manmanbuy.png, enabled=true"
       },
       {
-         "config": "15 6 * * * https://raw.githubusercontent.com/chavyleung/scripts/master/ithome/ithome.js, tag=IT之家, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/ithome.png, enabled=true"
-      }, 
-      {
          "config": "20 6 * * * https://raw.githubusercontent.com/chavyleung/scripts/master/feng/feng.js, tag=威锋网, img-url=https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/feng.png, enabled=true"
       },
       {
