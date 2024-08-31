@@ -1,136 +1,153 @@
 {
-    "id": "WowYiJiu.app.sub",
-    "name": "WowYiJiu 脚本订阅",
-    "author": "@WowYiJiu",
-    "icon": "https://avatars.githubusercontent.com/u/63225855?v=4",
-    "repo": "https://github.com/WowYiJiu/Personal",
-    "apps":
-    [
+  "id": "WowYiJiu.app.sub",
+  "name": "WowYiJiu 脚本订阅",
+  "author": "@WowYiJiu",
+  "icon": "https://avatars.githubusercontent.com/u/63225855?v=4",
+  "repo": "https://github.com/WowYiJiu/Personal",
+  "apps": [
+    {
+      "id": "gdong",
+      "name": "G动",
+      "author": "@WowYiJiu",
+      "repo": "https://github.com/WowYiJiu/Personal/blob/main/Script/gdong.js",
+      "script": "https://raw.githubusercontent.com/WowYiJiu/Personal/main/Script/gdong.js",
+      "keys": ["gdCookie", "gd_accessToken"],
+      "descs_html": [
+        "<h4 align=\"center\">个人常用Boxjs一键订阅<a href=\"https://github.com/WowYiJiu/Personal/wiki/Boxjs%E4%B8%80%E9%94%AE%E8%AE%A2%E9%98%85\">BoxJS订阅页面</a></h4>",
+        "<h4 align=\"center\">获取Cookie以及脚本配置请查看<a href=\"https://raw.githubusercontent.com/WowYiJiu/Personal/main/Script/gdong.js\">脚本注释</a></h4>"
+      ],
+      "icons": [
+        "https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/Alpha/gdong.png",
+        "https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/Color/gdong.png"
+      ]
+    },
+    {
+      "id": "txSports",
+      "name": "腾讯视频",
+      "author": "@WowYiJiu",
+      "repo": "https://github.com/WowYiJiu/Personal/blob/main/Script/tenvideo.js",
+      "script": "https://raw.githubusercontent.com/WowYiJiu/Personal/main/Script/tenvideo.js",
+      "keys": [
+        "txspCookie",
+        "txspRefreshCookie",
+        "txspRefreshBody",
+        "dayOfGetMonthTicket",
+        "isSkipTxspCheckIn",
+        "isLottery"
+      ],
+      "descs_html": [
+        "<h4 align=\"center\">个人常用Boxjs一键订阅<a href=\"https://github.com/WowYiJiu/Personal/wiki/Boxjs%E4%B8%80%E9%94%AE%E8%AE%A2%E9%98%85\">BoxJS订阅页面</a></h4>",
+        "<h4 align=\"center\">获取Cookie以及脚本配置请查看<a href=\"https://raw.githubusercontent.com/WowYiJiu/Personal/main/Script/tenvideo.js\">脚本注释</a></h4>"
+      ],
+      "icons": [
+        "https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/Alpha/tenvideo.png",
+        "https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/Color/tenvideo.png"
+      ],
+      "settings": [
         {
-            "id": "gdong",
-            "name": "G动",
-            "author": "@WowYiJiu",
-            "repo": "https://github.com/WowYiJiu/Personal/blob/main/Script/gdong.js",
-            "script": "https://raw.githubusercontent.com/WowYiJiu/Personal/main/Script/gdong.js",
-            "keys": ["gdCookie", "gd_accessToken"],
-            "descs_html": [
-            "<h4 align=\"center\">获取Cookie以及脚本配置请查看<a href=\"https://raw.githubusercontent.com/WowYiJiu/Personal/main/Script/gdong.js\">脚本注释</a></h4>"
-            ],
-            "icons": ["https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/Alpha/gdong.png", "https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/Color/gdong.png"]
+          "id": "dayOfGetMonthTicket",
+          "name": "每月几号领取每月球票",
+          "val": "1",
+          "type": "text"
         },
         {
-            "id": "txSports",
-            "name": "腾讯视频",
-            "author": "@WowYiJiu",
-            "repo": "https://github.com/WowYiJiu/Personal/blob/main/Script/tenvideo.js",
-            "script": "https://raw.githubusercontent.com/WowYiJiu/Personal/main/Script/tenvideo.js",
-            "keys": ["txspCookie", "txspRefreshCookie", "txspRefreshBody", "dayOfGetMonthTicket", "isSkipTxspCheckIn", "isLottery"],
-            "descs_html": [
-            "<h4 align=\"center\">获取Cookie以及脚本配置请查看<a href=\"https://raw.githubusercontent.com/WowYiJiu/Personal/main/Script/tenvideo.js\">脚本注释</a></h4>"
-            ],
-            "icons": ["https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/Alpha/tenvideo.png", "https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/Color/tenvideo.png"],
-            "settings": [
-                {
-                    "id": "dayOfGetMonthTicket",
-                    "name": "每月几号领取每月球票",
-                    "val": "1",
-                    "type": "text"
-                },
-                {
-                    "id": "isSkipTxspCheckIn",
-                    "name": "腾讯视频签到",
-                    "val": false,
-                    "type": "boolean",
-                    "desc": "是否跳过腾讯视频签到"
-                },
-                {
-                    "id": "isLottery",
-                    "name": "抽抽乐",
-                    "val": false,
-                    "type": "boolean",
-                    "desc": "抽抽乐开关"
-                }
-            ]
+          "id": "isSkipTxspCheckIn",
+          "name": "腾讯视频签到",
+          "val": false,
+          "type": "boolean",
+          "desc": "是否跳过腾讯视频签到"
         },
         {
-            "id": "boxjs_to_ql",
-            "name": "boxjs同步ql",
-            "author": "@WowYiJiu",
-            "repo": "https://github.com/WowYiJiu/Personal/blob/main/Script/boxjs_to_ql.js",
-            "script": "https://raw.githubusercontent.com/WowYiJiu/Personal/main/Script/boxjs_to_ql.js",
-            "keys": [
-                "@ql.mute",
-                "@ql.is_pwd",
-                "@ql.sync_env__key",
-                "@ql.ip",
-                "@ql.client_id",
-                "@ql.client_secret",
-                "@ql.username",
-                "@ql.password"
-            ],
-            "descs_html": [
-                "青龙 docker 的安装方式请移步 tg 频道",
-                "青龙 docker 作者仓库：【<a href=\"https://github.com/whyour\">github</a>】",
-                "青龙 docker 频道：【<a href=\"https://t.me/jiao_long\">电报频道</a>】",
-                "应用client_id,client_secret（openapi）方式；请去 设置->应用 中添加相关参数，优先以 openapi 方式同步"
-            ],
-            "icons": ["https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/Alpha/ql.png", "https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/Color/ql.png"],
-            "settings": [
-                {
-                    "id": "@ql.mute",
-                    "name": "静音",
-                    "val": false,
-                    "type": "boolean",
-                    "desc": "同步时，是否执行通知提示"
-                },
-                {
-                    "id": "@ql.is_pwd",
-                    "name": "开启密码登陆",
-                    "val": false,
-                    "type": "boolean",
-                    "desc": "同步时，是否使用密码登陆"
-                },
-                {
-                    "id": "@ql.sync_env__key",
-                    "name": "同步环境变量",
-                    "val": "",
-                    "type": "textarea",
-                    "autoGrow": true,
-                    "rows": 5,
-                    "placeholder": "boxjs环境变量名#ql环境变量名#ql备注(同步)\n-boxjs环境变量名#ql环境变量名#ql备注(不同步)",
-                    "desc": "多个同步变量换行隔开，boxjs环境变量名前加-表示不同步"
-                },
-                {
-                    "id": "@ql.ip",
-                    "name": "青龙登陆的域名或IP:端口号",
-                    "val": "",
-                    "type": "text"
-                },
-                {
-                "id": "@ql.client_id",
-                "name": "应用 Client ID",
-                "val": "",
-                "type": "text"
-                },
-                {
-                "id": "@ql.client_secret",
-                "name": "应用 Client Secret",
-                "val": "",
-                "type": "text"
-                },
-                {
-                "id": "@ql.username",
-                "name": "账号",
-                "val": "",
-                "type": "text"
-                },
-                {
-                "id": "@ql.password",
-                "name": "密码",
-                "val": "",
-                "type": "text"
-                }
-            ]
+          "id": "isLottery",
+          "name": "抽抽乐",
+          "val": false,
+          "type": "boolean",
+          "desc": "抽抽乐开关"
         }
-    ]
+      ]
+    },
+    {
+      "id": "boxjs_to_ql",
+      "name": "boxjs同步ql",
+      "author": "@WowYiJiu",
+      "repo": "https://github.com/WowYiJiu/Personal/blob/main/Script/boxjs_to_ql.js",
+      "script": "https://raw.githubusercontent.com/WowYiJiu/Personal/main/Script/boxjs_to_ql.js",
+      "keys": [
+        "@ql.mute",
+        "@ql.is_pwd",
+        "@ql.sync_env__key",
+        "@ql.ip",
+        "@ql.client_id",
+        "@ql.client_secret",
+        "@ql.username",
+        "@ql.password"
+      ],
+      "descs_html": [
+        "青龙 docker 的安装方式请移步 tg 频道",
+        "青龙 docker 作者仓库：【<a href=\"https://github.com/whyour\">github</a>】",
+        "青龙 docker 频道：【<a href=\"https://t.me/jiao_long\">电报频道</a>】",
+        "应用client_id,client_secret（openapi）方式；请去 设置->应用 中添加相关参数，优先以 openapi 方式同步"
+      ],
+      "icons": [
+        "https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/Alpha/ql.png",
+        "https://raw.githubusercontent.com/WowYiJiu/Personal/main/icon/Color/ql.png"
+      ],
+      "settings": [
+        {
+          "id": "@ql.mute",
+          "name": "静音",
+          "val": false,
+          "type": "boolean",
+          "desc": "同步时，是否执行通知提示"
+        },
+        {
+          "id": "@ql.is_pwd",
+          "name": "开启密码登陆",
+          "val": false,
+          "type": "boolean",
+          "desc": "同步时，是否使用密码登陆"
+        },
+        {
+          "id": "@ql.sync_env__key",
+          "name": "同步环境变量",
+          "val": "",
+          "type": "textarea",
+          "autoGrow": true,
+          "rows": 5,
+          "placeholder": "boxjs环境变量名#ql环境变量名#ql备注(同步)\n-boxjs环境变量名#ql环境变量名#ql备注(不同步)",
+          "desc": "多个同步变量换行隔开，boxjs环境变量名前加-表示不同步"
+        },
+        {
+          "id": "@ql.ip",
+          "name": "青龙登陆的域名或IP:端口号",
+          "val": "",
+          "type": "text"
+        },
+        {
+          "id": "@ql.client_id",
+          "name": "应用 Client ID",
+          "val": "",
+          "type": "text"
+        },
+        {
+          "id": "@ql.client_secret",
+          "name": "应用 Client Secret",
+          "val": "",
+          "type": "text"
+        },
+        {
+          "id": "@ql.username",
+          "name": "账号",
+          "val": "",
+          "type": "text"
+        },
+        {
+          "id": "@ql.password",
+          "name": "密码",
+          "val": "",
+          "type": "text"
+        }
+      ]
+    }
+  ]
 }
